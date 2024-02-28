@@ -17,7 +17,7 @@ public class Customer {
         return 0.0F;
     }
 
-    public void showLotteryResult(){
+    public void showLotteryResult() {
 
     }
 }
