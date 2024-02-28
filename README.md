@@ -6,20 +6,11 @@
 - 세 개의 요구 사항을 만족하기 위해 노력한다. 특히 기능을 구현하기 전에 기능 목록을 만들고, 기능 단위로 커밋 하는 방식으로 진행한다.
 - 기능 요구 사항에 기재되지 않은 내용은 스스로 판단하여 구현한다.
 
-## 📮 미션 제출 방법
+## 🚨 체크 리스트
 
-- 미션 구현을 완료한 후 GitHub을 통해 제출해야 한다.
-    - GitHub을 활용한 제출 방법은 [프리코스 과제 제출](https://github.com/woowacourse/woowacourse-docs/tree/master/precourse) 문서를 참고해
-      제출한다.
-- GitHub에 미션을 제출한 후 [우아한테크코스 지원](https://apply.techcourse.co.kr) 사이트에 접속하여 프리코스 과제를 제출한다.
-    - 자세한 방법은 [제출 가이드](https://github.com/woowacourse/woowacourse-docs/tree/master/precourse#제출-가이드) 참고
-    - **Pull Request만 보내고 지원 플랫폼에서 과제를 제출하지 않으면 최종 제출하지 않은 것으로 처리되니 주의한다.**
-
-## 🚨 과제 제출 전 체크 리스트 - 0점 방지
-
-- 기능 구현을 모두 정상적으로 했더라도 **요구 사항에 명시된 출력값 형식을 지키지 않을 경우 0점으로 처리**한다.
+- 요구 사항에 명시된 출력값 형식을 준수한다.
 - 기능 구현을 완료한 뒤 아래 가이드에 따라 테스트를 실행했을 때 모든 테스트가 성공하는지 확인한다.
-- **테스트가 실패할 경우 0점으로 처리**되므로, 반드시 확인 후 제출한다.
+- `git config commit.template .gitmessage.txt` 명령을 통해 git 커밋 메시지 기본값을 설정한다.
 
 ### 테스트 실행 가이드
 
@@ -178,45 +169,6 @@ BUILD SUCCESSFUL in 0s
 - 도메인 로직에 단위 테스트를 구현해야 한다. 단, UI(System.out, System.in, Scanner) 로직은 제외한다.
     - 핵심 로직을 구현하는 코드와 UI를 담당하는 로직을 분리해 구현한다. 
     - 단위 테스트 작성이 익숙하지 않다면 `test/java/lotto/LottoTest`를 참고하여 학습한 후 테스트를 구현한다.
-
-### 라이브러리
-
-- `camp.nextstep.edu.missionutils`에서 제공하는 `Randoms` 및 `Console`
-  API를 사용하여 구현해야 한다.
-    - Random 값 추출은 `camp.nextstep.edu.missionutils.Randoms`의 `pickUniqueNumbersInRange()`를 활용한다.
-    - 사용자가 입력하는 값은 `camp.nextstep.edu.missionutils.Console`의 `readLine()`을 활용한다.
-
-#### 사용 예시
-
-```java
-List<Integer> numbers = Randoms.pickUniqueNumbersInRange(1, 45, 6);
-```
-
-### Lotto 클래스
-
-- 제공된 `Lotto` 클래스를 활용해 구현해야 한다.
-- `numbers`의 접근 제어자인 private을 변경할 수 없다.
-- `Lotto`에 필드(인스턴스 변수)를 추가할 수 없다.
-- `Lotto`의 패키지 변경은 가능하다.
-
-```java
-public class Lotto {
-    private final List<Integer> numbers;
-
-    public Lotto(List<Integer> numbers) {
-        validate(numbers);
-        this.numbers = numbers;
-    }
-
-    private void validate(List<Integer> numbers) {
-        if (numbers.size() != 6) {
-            throw new IllegalArgumentException();
-        }
-    }
-
-    // TODO: 추가 기능 구현
-}
-```
 
 ---
 
