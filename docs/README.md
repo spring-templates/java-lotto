@@ -19,10 +19,12 @@
 - LottoResultCalculator
   - 로또의 당첨 내역와 수익률 계산
 - LottoValidator
-    - 로또 구입 금액 유효성 검사
-    - 생성한 로또 유효성 검사
-    - 당첨 번호 유효성 검사
-    - 보너스 번호 유효성 검사
+  - 로또 구입 금액 유효성 검사
+  - 생성한 로또 유효성 검사
+  - 당첨 번호 유효성 검사
+  - 보너스 번호 유효성 검사
+- ErrorException
+  - 커스텀 exception 발생
 
 ### Data Layer
 - Customer
@@ -35,3 +37,5 @@
   - 로또 저장
 - Winnings
   - 상금과 당첨 액수 저장
+- ErrorStatus
+  - 예외 코드와 에러 메세지 저장
