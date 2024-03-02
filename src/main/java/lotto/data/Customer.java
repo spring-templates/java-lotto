@@ -1,13 +1,18 @@
 package lotto.data;
 
+import lombok.Getter;
+import lombok.Setter;
 import lotto.util.ExceptionStatus;
-
-import java.util.ArrayList;
 import java.util.List;
 
+
 public class Customer {
+    @Getter
     private final int purchaseAmount;
-    private List<Lotto> lottos = new ArrayList<>();
+    @Setter
+    @Getter
+    private List<Lotto> lottos;
+    @Getter
     private static Customer instance;
 
     public static Customer getInstance(int purchaseAmount){
@@ -18,16 +23,16 @@ public class Customer {
     }
 
     private Customer(int purchaseAmount){
-        this.purchaseAmount = vaildPurchaseAmount(purchaseAmount);
+        validPurchaseAmount(purchaseAmount);
+        this.purchaseAmount = purchaseAmount;
     }
 
-    private int vaildPurchaseAmount(int purchaseAmount){
-        if(purchaseAmount%1000 >0){ // 1000으로 나눠 떨어지지 않는 경우
+    private void validPurchaseAmount(int purchaseAmount){
+        if(purchaseAmount%1000 > 0){ // 1000으로 나눠 떨어지지 않는 경우
             throw ExceptionStatus.IllegalPurchaseRemainderException.makeException();
         }
-        if(purchaseAmount <0){
+        if(purchaseAmount <0){ // 0 미만인 경우
             throw ExceptionStatus.IllegalPurchaseNegativeException.makeException();
         }
-        return purchaseAmount;
     }
 }
