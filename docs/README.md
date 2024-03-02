@@ -20,36 +20,22 @@
 - LottoResultCalculator - 로또 당첨 내역과 수익률 계산
   - 로또의 당첨 내역와 수익률 계산
 
-[//]: # (다른 많은 클래스가 LottoValidator를 의존하게 될 것 같음. 차라리 검사를 분리하는게 좋을듯)
-
-[//]: # (- LottoValidator )
-
-[//]: # (  - 로또 구입 금액 유효성 검사)
-
-[//]: # (  - 생성한 로또 유효성 검사)
-
-[//]: # (  - 당첨 번호 유효성 검사)
-
-[//]: # (  - 보너스 번호 유효성 검사)
-
 ### Data Layer
 - Customer - class - **정확한** 고객의 저장
   - 사용자 구입 금액 저장
   - 생성한 로또 저장
   - 로또 구입 금액 유효성 검사
-- LottoCompany - recode - **정확한** 당첨 번호와 보너스 번호 저장
+- LottoCompany - class - **정확한** 당첨 번호와 보너스 번호 저장
   - 당첨 번호 저장
   - 보너스 번호 저장
   - 당첨 번호와 보너스 번호 유효성 검사
-- Lotto - recode - **정확한** 로또 번호 저장
+- Lotto - record - **정확한** 로또 번호 저장
   - 로또 저장
   - 생성한 로또 유효성 검사
 - Winnings - enum
   - 상금과 당첨 액수 저장
-- ErrorStatus - enum
-  - 예외 코드와 에러 메세지 저장
 
 ### Util
 
-- ErrorException
-  - 커스텀 exception 발생
+- ExceptionStatus - enum
+  - 예외 코드와 에러 메세지 저장 및 exception 발생

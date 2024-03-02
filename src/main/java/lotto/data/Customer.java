@@ -1,12 +1,12 @@
 package lotto.data;
 
-import lotto.util.CustomException;
+import lotto.util.ExceptionStatus;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Customer {
-    private int purchaseAmount;
+    private final int purchaseAmount;
     private List<Lotto> lottos = new ArrayList<>();
     private static Customer instance;
 
@@ -23,10 +23,10 @@ public class Customer {
 
     private int vaildPurchaseAmount(int purchaseAmount){
         if(purchaseAmount%1000 >0){ // 1000으로 나눠 떨어지지 않는 경우
-            throw new CustomException(ExceptionStatus.IllegalPurchaseRemainderException);
+            throw ExceptionStatus.IllegalPurchaseRemainderException.makeException();
         }
         if(purchaseAmount <0){
-            throw new CustomException(ExceptionStatus.IllegalPurchaseNegativeException);
+            throw ExceptionStatus.IllegalPurchaseNegativeException.makeException();
         }
         return purchaseAmount;
     }
