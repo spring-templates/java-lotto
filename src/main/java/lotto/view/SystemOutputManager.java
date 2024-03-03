@@ -7,12 +7,13 @@ import java.util.List;
 public class SystemOutputManager implements OutputManager{
     @Override
     public void outputLottoQuantity(int quantity) {
-
+        System.out.println(quantity+"개를 구매했습니다.");
     }
 
     @Override
     public void outputLottoNumbers(List<Lotto> lottoList) {
-
+        lottoList.forEach(lotto ->
+                System.out.println(lotto.toString()));
     }
 
     @Override

@@ -14,7 +14,7 @@ public record Lotto(List<Integer> numbers) {
     }
 
     private void validate(List<Integer> numbers) {
-        // 숫가 개수
+        // 숫자 개수
         LottoValidator.checkNumberCount(numbers);
         // 중복 숫자
         LottoValidator.checkNumberDuplicate(numbers);
@@ -22,4 +22,8 @@ public record Lotto(List<Integer> numbers) {
         LottoValidator.checkNumbersLottoScope(numbers);
     }
     // TODO: 추가 기능 구현
+    @Override
+    public String toString(){
+        return numbers.toString();
+    }
 }
