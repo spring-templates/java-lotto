@@ -1,4 +1,4 @@
-package lotto.data;
+package lotto.model;
 
 import lombok.Getter;
 import lotto.util.ExceptionStatus;

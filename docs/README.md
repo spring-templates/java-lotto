@@ -32,10 +32,10 @@
 - Lotto - record - **정확한** 로또 번호 저장
   - 로또 저장
   - 생성한 로또 유효성 검사
-- Winnings - enum
-  - 상금과 당첨 액수 저장
 
 ### Util
 
 - ExceptionStatus - enum
   - 예외 코드와 에러 메세지 저장 및 exception 발생
+- Winnings - enum
+  - 상금과 당첨 액수 저장

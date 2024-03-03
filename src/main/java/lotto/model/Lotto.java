@@ -1,5 +1,4 @@
-package lotto.data;
-import lotto.util.ExceptionStatus;
+package lotto.model;
 import lotto.util.LottoValidator;
 
 import java.util.List;
