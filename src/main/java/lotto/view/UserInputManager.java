@@ -1,5 +1,6 @@
 package lotto.view;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,11 +13,15 @@ public class UserInputManager implements InputManager {
 
     @Override
     public List<Integer> enterWinningNumbers() {
-        return null;
+        List<Integer> list = new ArrayList<>();
+        for(int i=0; i<6; i++){
+            list.add(sc.nextInt());
+        }
+        return list;
     }
 
     @Override
     public int enterBonusNumber() {
-        return 0;
+        return sc.nextInt();
     }
 }
