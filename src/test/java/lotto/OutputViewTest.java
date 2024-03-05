@@ -14,10 +14,10 @@ import org.junit.jupiter.api.Test;
 
 class OutputViewTest {
 
-    ByteArrayOutputStream outputStreamCaptor;
     private final Lotto winningLotto;
     private final int winningBonusNumber;
     private final List<Lotto> purchasedLottos;
+    ByteArrayOutputStream outputStreamCaptor;
 
     public OutputViewTest() {
         winningLotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));

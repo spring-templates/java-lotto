@@ -25,7 +25,7 @@ class InputViewTest {
     void inputLottoExpenseByNumberExceedingIntMax() {
         String input = String.valueOf(1L + Integer.MAX_VALUE);
         System.setIn(new ByteArrayInputStream(input.getBytes()));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> InputView.inputLottoExpense());
+        Assertions.assertThrows(IllegalArgumentException.class, InputView::inputLottoExpense);
     }
 
     @DisplayName("구입 금액 입력 시, 입력한 정수가 0부터 INT_MAX 사이라면 예외가 발생하지 않는다.")
@@ -56,8 +56,9 @@ class InputViewTest {
     @ParameterizedTest
     @ValueSource(strings = {"46", "0", "-1"})
     void inputBonusNumberByNumberExceedingIntMax(String input) {
+        Lotto winningLotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
         System.setIn(new ByteArrayInputStream(input.getBytes()));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> InputView.inputBonusNumber(null));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> InputView.inputBonusNumber(winningLotto));
     }
 
     @DisplayName("보너스 번호를 입력 시, 입력한 정수가 당첨 번호와 중복된다면 예외가 발생한다")
@@ -68,5 +69,4 @@ class InputViewTest {
         System.setIn(new ByteArrayInputStream(String.valueOf(integer).getBytes()));
         Assertions.assertThrows(IllegalArgumentException.class, () -> InputView.inputBonusNumber(winningLotto));
     }
-
 }
