@@ -38,6 +38,8 @@ public record LottoCompany(List<Integer> winningNumbers,int bonusNumber) {
     }
 
     private static void validateWinningNumbers(List<Integer> winningNumbers) {
+        // 숫자 개수
+        LottoValidator.checkNumberCount(winningNumbers);
         // 중복 숫자
         LottoValidator.checkNumberDuplicate(winningNumbers);
         // 로또 숫자 범위

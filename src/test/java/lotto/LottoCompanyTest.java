@@ -27,6 +27,14 @@ public class LottoCompanyTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
+    @DisplayName("당첨 번호 개수가 6이 넘어가면 예외가 발생한다")
+    @Test
+    void createErrorWithSizeIsMoreThen6() {
+        Assertions.assertThatThrownBy(() ->
+                        new LottoCompany(List.of(45,17,42,36,1,46,4), 8))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
     @DisplayName("보너스 번호가 유효 범위 밖에 있으면 예외가 발생한다")
     @Test
     void createLottoCompanyByBonusOverScope() {

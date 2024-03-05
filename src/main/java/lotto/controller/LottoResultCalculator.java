@@ -82,7 +82,7 @@ public class LottoResultCalculator {
     }
 
     public String calculateReturn(Map<Winnings, Integer> lottoResult, Customer customer) {
-        return  String.format("%.1f", (double) totalPrice(lottoResult)/customer.purchaseAmount());
+        return  String.format("%.1f", (double) totalPrice(lottoResult)*100/customer.purchaseAmount());
     }
     private int totalPrice(Map<Winnings, Integer> lottoResult){
         int result = 0;
