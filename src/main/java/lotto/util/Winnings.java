@@ -8,18 +8,18 @@ import java.util.Map;
 
 @Getter
 public enum Winnings {
-    Fifth("3개 일치",5000,3,0),
-    Fourth("4개 일치",50000,4,0),
-    Third("5개 일치",1500000,5,0),
-    Second("5개 일치, 보너스 볼 일치",30000000,5,1),
-    First("6개 일치", 2000000000,6,0);
+    Fifth("3개 일치",5000,3,false),
+    Fourth("4개 일치",50000,4,false),
+    Third("5개 일치",1500000,5,false),
+    Second("5개 일치, 보너스 볼 일치",30000000,5,true),
+    First("6개 일치", 2000000000,6,false);
 
     private String winningDescription;
     private int winningValue;
     private int winningMatchCount;
-    private int bonusMatchCount;
+    private boolean bonusMatchCount;
 
-    Winnings(String s, int i,int j, int k) {
+    Winnings(String s, int i,int j, boolean k) {
         this.winningDescription = s;
         this.winningValue = i;
         this.winningMatchCount = j;
@@ -34,12 +34,12 @@ public enum Winnings {
         return map;
     }
 
-    public static Winnings valueOfWinningsAndBonus(int winningMatchCount, int bonusMatchCount){
+    public static Winnings valueOfWinningsAndBonus(int winningMatchCount, boolean bonusMatch){
         for(Winnings w : values()){
             if(w.winningMatchCount == winningMatchCount){
                 if(winningMatchCount != 5)
                     return w;
-                if(w.bonusMatchCount == bonusMatchCount)
+                if(w.bonusMatchCount == bonusMatch)
                     return w;
             }
         }

@@ -3,13 +3,19 @@ package lotto.model;
 import lombok.Getter;
 import lombok.Setter;
 import lotto.util.ExceptionStatus;
+
+import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+public class Customer {
+    private int purchaseAmount;
+    private List<Lotto> lottos;
 
-public record Customer(int purchaseAmount, List<Lotto> lottos) {
-
-    public Customer {
+    private Customer(int purchaseAmount, List<Lotto> lottos) {
         validPurchaseAmount(purchaseAmount);
+        this.purchaseAmount = purchaseAmount;
+        this.lottos = new ArrayList<>();
     }
 
     private void validPurchaseAmount(int purchaseAmount) {
@@ -26,8 +32,8 @@ public record Customer(int purchaseAmount, List<Lotto> lottos) {
     }
 
     // 추후에 로또 리스트가 포함된 Customer 객체 만들기 위한 팩토리 메서드
-    public Customer withLottos(List<Lotto> lottos) {
-        return new Customer(this.purchaseAmount, lottos);
+    public void withLottos(List<Lotto> lottos) {
+        this.lottos = lottos;
     }
 }
 

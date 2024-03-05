@@ -43,7 +43,6 @@ public class LottoGenerator {
     }
 
     private Lotto createLotto(){
-
         Set<Integer> numbers = new HashSet<>();
         while(numbers.size()<=5) {
             int temp = (int) (Math.random() * 45 + 1); // 1~45 사이 값 무작위로 추출
