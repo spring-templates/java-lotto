@@ -17,13 +17,13 @@ public class LottoFactory {
         CustomerSession session = new CustomerSession();
         session.addLotto(purchaseLotto());
         OutputView.printLotto(session.purchasedLotto());
-        Lotto winningLotto = InputView.inputWinningLotto();
-        Integer winningBonusNumber = InputView.inputBonusNumber(winningLotto);
+        Lotto winningLotto = inputWinningLotto();
+        Integer winningBonusNumber = inputBonusNumber(winningLotto);
         Map<Prize, Integer> prizeMap = calculateLottoResults(session, winningLotto, winningBonusNumber);
         OutputView.printStatistics(LottoVendor.lottoPrice.amount(), prizeMap);
     }
 
-    protected static List<Lotto> purchaseLotto() {
+    private static List<Lotto> purchaseLotto() {
         while (true) {
             try {
                 Money money = InputView.inputLottoExpense();
@@ -34,7 +34,27 @@ public class LottoFactory {
         }
     }
 
-    protected static Map<Prize, Integer> calculateLottoResults(
+    private static Lotto inputWinningLotto() {
+        while (true) {
+            try {
+                return InputView.inputWinningLotto();
+            } catch (IllegalArgumentException e) {
+                ExceptionHandler.handle(e);
+            }
+        }
+    }
+
+    private static Integer inputBonusNumber(Lotto winningLotto) {
+        while (true) {
+            try {
+                return InputView.inputBonusNumber(winningLotto);
+            } catch (IllegalArgumentException e) {
+                ExceptionHandler.handle(e);
+            }
+        }
+    }
+
+    private static Map<Prize, Integer> calculateLottoResults(
             CustomerSession session,
             Lotto winningLotto,
             Integer winningBonusNumber

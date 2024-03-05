@@ -18,6 +18,13 @@ public record Lotto(SortedSet<Integer> numbers) {
     }
 
     public static void validate(List<Integer> numbers) {
+        if (numbers == null) {
+            throw new IllegalArgumentException("Numbers must not be null");
+        }
+        if (numbers.size() != REQUIRED_LENGTH) {
+            throw new IllegalArgumentException(
+                    "Numbers must contain exactly " + REQUIRED_LENGTH + " elements");
+        }
         validate(new TreeSet<>(numbers));
     }
 
