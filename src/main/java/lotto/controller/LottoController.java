@@ -24,16 +24,16 @@ public class LottoController {
         LottoResultCalculator lottoResultCalculator = new LottoResultCalculator();
 
         Customer customer = retryCreateCustomer();
-        int lottoQuantity = lottoGenerator.countLottosBasedOnAmount(customer);
+        int lottoQuantity = lottoGenerator.countLottosBasedOnAmount(customer.getPurchaseAmount());
         outputManager.outputLottoQuantity(lottoQuantity);
         List<Lotto> lottos = lottoGenerator.createLottos(lottoQuantity);
         customer.withLottos(lottos);
         outputManager.outputLottoNumbers(lottos);
 
         PrizeNumbers prizeNumbers = retryCreatePrizeNumbers();
-        Map<Winnings,Integer> lottoResult = lottoResultCalculator.provideWinningDetails(customer, prizeNumbers);
+        Map<Winnings,Integer> lottoResult = lottoResultCalculator.provideWinningDetails(customer.getLottos(), prizeNumbers);
         outputManager.outputWinningDetails(lottoResult);
-        String rateOrReturn = lottoResultCalculator.calculateReturn(lottoResult, customer);
+        String rateOrReturn = lottoResultCalculator.calculateReturn(lottoResult, customer.getPurchaseAmount());
         outputManager.outputRateOfReturn(rateOrReturn);
     }
 

@@ -2,6 +2,7 @@ package lotto.model.service;
 
 import lombok.AllArgsConstructor;
 import lotto.model.Customer;
+import lotto.model.Lotto;
 import lotto.model.PrizeNumbers;
 import lotto.util.Winnings;
 import java.util.List;
@@ -10,9 +11,9 @@ import java.util.Map;
 @AllArgsConstructor
 public class LottoResultCalculator {
 
-    public Map<Winnings, Integer> provideWinningDetails(Customer customer, PrizeNumbers prizeNumbers){
+    public Map<Winnings, Integer> provideWinningDetails(List<Lotto> customerLottos, PrizeNumbers prizeNumbers){
         Map<Winnings, Integer> map = Winnings.newWinningsMap();
-        customer.getLottos().forEach(lotto -> {
+        customerLottos.forEach(lotto -> {
             int winningMatchCount = checkWinningElement(lotto.numbers(), prizeNumbers.winningNumbers());
             boolean bonusMatchCount = checkBonusElement(lotto.numbers(), prizeNumbers.bonusNumber());
             Winnings winnings = Winnings.valueOfWinningsAndBonus(winningMatchCount,bonusMatchCount);
@@ -32,8 +33,8 @@ public class LottoResultCalculator {
         return (int) a.stream().filter(b::contains).count();
     }
 
-    public String calculateReturn(Map<Winnings, Integer> lottoResult, Customer customer) {
-        return  String.format("%.1f", (double) totalPrice(lottoResult)*100/customer.getPurchaseAmount());
+    public String calculateReturn(Map<Winnings, Integer> lottoResult, int purchaseAmount) {
+        return  String.format("%.1f", (double) totalPrice(lottoResult)*100/purchaseAmount);
     }
     private int totalPrice(Map<Winnings, Integer> lottoResult){
         int result = 0;

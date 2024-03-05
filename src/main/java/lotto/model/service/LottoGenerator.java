@@ -16,17 +16,17 @@ import java.util.stream.IntStream;
 @AllArgsConstructor
 public class LottoGenerator {
     
-    public int countLottosBasedOnAmount(Customer customer){
-        return customer.getPurchaseAmount()/1000;
+    public int countLottosBasedOnAmount(int purchaseAmount){
+        return purchaseAmount/1000;
     }
 
     public List<Lotto> createLottos(int lottoQuantity) {
         return IntStream.range(0, lottoQuantity)
-                .mapToObj(i -> createLotto())
+                .mapToObj(i -> createSingleLotto())
                 .collect(Collectors.toList());
     }
 
-    private Lotto createLotto(){
+    private Lotto createSingleLotto(){
         Set<Integer> numbers = new HashSet<>();
         while(numbers.size()<=5) {
             int temp = (int) (Math.random() * 45 + 1); // 1~45 사이 값 무작위로 추출

@@ -1,15 +1,13 @@
 package service;
 
+import lotto.model.Lotto;
 import lotto.model.service.LottoGenerator;
-import lotto.model.Customer;
-import lotto.util.ExceptionStatus;
-import lotto.view.InputManager;
-import lotto.view.OutputManager;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.when;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class LottoGeneratorTest {
 
@@ -33,4 +31,31 @@ public class LottoGeneratorTest {
 //        // 다른 검증 로직 추가 가능
 //    }
 
+    @DisplayName("로또가 정해진 개수만큼 생성되는지 테스트.")
+    @Test
+    public void testCreateLottos(){
+        LottoGenerator lottoGenerator = new LottoGenerator();
+        List<Lotto> lottos = lottoGenerator.createLottos(10);
+        assertEquals(10, lottos.size());
+    }
+
+    @DisplayName("로또 요소가 1에서 45 사이인지 테스트.")
+    @Test
+    public void testLottosScoope() {
+        // Given
+        LottoGenerator lottoGenerator = new LottoGenerator();
+        int lottoQuantity = 10;
+
+        // When
+        List<Lotto> lottos = lottoGenerator.createLottos(lottoQuantity);
+
+        // Then
+        for (Lotto lotto : lottos) {
+            assertThat(lotto.numbers())
+                    .allSatisfy( n -> {
+                        assertThat(n).isGreaterThan(0);
+                        assertThat(n).isLessThan(46);
+                    });
+        }
+    }
 }
