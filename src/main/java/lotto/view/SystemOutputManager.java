@@ -21,6 +21,7 @@ public class SystemOutputManager implements OutputManager{
 
     @Override
     public void outputWinningDetails(Map<Winnings, Integer> map) {
+        System.out.println("당첨 통계\n---");
         for(Winnings w : map.keySet()){
             System.out.println(
                     w.getWinningDescription()+" ("+

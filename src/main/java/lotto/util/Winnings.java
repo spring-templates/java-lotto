@@ -3,6 +3,7 @@ package lotto.util;
 import lombok.Getter;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Getter
@@ -26,7 +27,7 @@ public enum Winnings {
     }
 
     public static Map<Winnings, Integer> newWinningsMap(){
-        HashMap<Winnings, Integer> map = new HashMap<>();
+        HashMap<Winnings, Integer> map = new LinkedHashMap<>(); // 입력 순서를 보장하면서 Map을 사용할 수 있는 자료형
         for(Winnings w : values()){
             map.put(w,0);
         }

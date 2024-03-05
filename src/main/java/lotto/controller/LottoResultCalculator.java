@@ -1,6 +1,8 @@
 package lotto.controller;
 
+import lombok.AllArgsConstructor;
 import lotto.model.Customer;
+import lotto.model.Lotto;
 import lotto.model.LottoCompany;
 import lotto.util.Winnings;
 import lotto.view.InputManager;
@@ -8,14 +10,18 @@ import lotto.view.OutputManager;
 import java.util.List;
 import java.util.Map;
 
+@AllArgsConstructor
 public class LottoResultCalculator {
 
-    public LottoCompany createLottoCompany(InputManager inputManager, OutputManager outputManager){
-        LottoCompany.Builder builder = getWinningNumbers(inputManager, outputManager);
-        return getBonusNumber(inputManager, outputManager, builder);
+    private final InputManager inputManager;
+    private final OutputManager outputManager;
+
+    public LottoCompany createLottoCompany(){
+        LottoCompany.Builder builder = getWinningNumbers();
+        return getBonusNumber(builder);
     }
 
-    private LottoCompany.Builder getWinningNumbers(InputManager inputManager, OutputManager outputManager){
+    private LottoCompany.Builder getWinningNumbers(){
         LottoCompany.Builder builder =  new LottoCompany.Builder();
         while(true){
             try{
@@ -29,7 +35,7 @@ public class LottoResultCalculator {
         }
     }
 
-    private LottoCompany getBonusNumber(InputManager inputManager, OutputManager outputManager, LottoCompany.Builder builder){
+    private LottoCompany getBonusNumber(LottoCompany.Builder builder){
         while(true){
             try{
                 outputManager.displayBonusNumberRequest();
@@ -43,11 +49,12 @@ public class LottoResultCalculator {
         }
     }
 
-    public Map<Winnings, Integer> provideWinningDetails(Customer customer, LottoCompany lottoCompany){
+    public Map<Winnings, Integer> provideWinningDetails(Customer customer){
+        LottoCompany lottoCompany = createLottoCompany(); // lottoCompany는 현재 메서드에서만 사용되고 더 이상 사용되지 않는다.
         Map<Winnings, Integer> map = Winnings.newWinningsMap();
         customer.lottos().forEach(lotto -> {
             int winningMatchCount = checkWinningElement(lotto.numbers(), lottoCompany.winningNumbers());
-            int bonusMatchCount =checkBonusElement(lotto.numbers(),lottoCompany.bonusNumber());
+            int bonusMatchCount = checkBonusElement(lotto.numbers(), lottoCompany.bonusNumber());
             Winnings winnings = Winnings.valueOfWinningsAndBonus(winningMatchCount,bonusMatchCount);
             if(winnings != null){
                 map.put(winnings, map.get(winnings)+1);

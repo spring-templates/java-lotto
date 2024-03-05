@@ -21,8 +21,8 @@ public class LottoGeneratorTest {
         // 사용자가 1000으로 나눠떨어지지 않는 값을 입력한 경우와 사용자가 정상적인 값을 입력한 경우
         when(inputManager.enterPurchaseAmount()).thenReturn(100).thenReturn(1000);
 
-        LottoGenerator lottoGenerator = new LottoGenerator();
-        Customer customer = lottoGenerator.createCustomer(inputManager, outputManager);
+        LottoGenerator lottoGenerator = new LottoGenerator(inputManager,outputManager);
+        Customer customer = lottoGenerator.createCustomer();
         assertNotNull(customer);
 
         verify(inputManager, times(2))
@@ -41,8 +41,8 @@ public class LottoGeneratorTest {
         // 사용자가 1000으로 나눠떨어지지 않는 값을 입력한 경우와 사용자가 정상적인 값을 입력한 경우
         when(inputManager.enterPurchaseAmount()).thenReturn(-100).thenReturn(1000);
 
-        LottoGenerator lottoGenerator = new LottoGenerator();
-        Customer customer = lottoGenerator.createCustomer(inputManager, outputManager);
+        LottoGenerator lottoGenerator = new LottoGenerator(inputManager, outputManager);
+        Customer customer = lottoGenerator.createCustomer();
         assertNotNull(customer);
 
         verify(inputManager, times(2))
