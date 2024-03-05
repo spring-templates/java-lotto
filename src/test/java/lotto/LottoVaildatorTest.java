@@ -1,37 +1,29 @@
 package lotto;
 
-import lotto.model.LottoCompany;
+import lotto.util.LottoValidator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class LottoCompanyTest {
+public class LottoVaildatorTest {
 
     @DisplayName("당첨 번호의 개수가 6개가 아니면 예외가 발생한다.")
     @Test
     void createLottoCompanyByOverSize() {
         Assertions.assertThatThrownBy(() ->
-                        new LottoCompany(List.of(45,17,42,36,1,2,9), 8))
+                        LottoValidator.checkLottoVaild(List.of(45,17,42,36,1,2,9)))
                 .isInstanceOf(IllegalArgumentException.class);
         Assertions.assertThatThrownBy(() ->
-                        new LottoCompany(List.of(45,17,42,36,1), 8))
+                        LottoValidator.checkLottoVaild(List.of(45,17,42,36,1)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
     @DisplayName("당첨 번호가 유효 범위 밖에 있으면 예외가 발생한다")
     @Test
     void createLottoCompanyByWinningOverScope() {
         Assertions.assertThatThrownBy(() ->
-                        new LottoCompany(List.of(45,17,42,36,1,46), 8))
-                .isInstanceOf(IllegalArgumentException.class);
-    }
-
-    @DisplayName("당첨 번호 개수가 6이 넘어가면 예외가 발생한다")
-    @Test
-    void createErrorWithSizeIsMoreThen6() {
-        Assertions.assertThatThrownBy(() ->
-                        new LottoCompany(List.of(45,17,42,36,1,46,4), 8))
+                LottoValidator.checkLottoVaild(List.of(45,17,42,36,1,46)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -39,7 +31,7 @@ public class LottoCompanyTest {
     @Test
     void createLottoCompanyByBonusOverScope() {
         Assertions.assertThatThrownBy(() ->
-                        new LottoCompany(List.of(45,17,42,36,1,6), 0))
+                        LottoValidator.checkBonusNumber(List.of(45,17,42,36,1,6), 0))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -47,8 +39,7 @@ public class LottoCompanyTest {
     @Test
     void createLottoCompanyByOverScope() {
         Assertions.assertThatThrownBy(() ->
-                        new LottoCompany(List.of(45,17,42,36,1,46), 46))
+                        LottoValidator.checkBonusNumber(List.of(45,17,42,36,1,46), 46))
                 .isInstanceOf(IllegalArgumentException.class);
     }
-
 }

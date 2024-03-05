@@ -1,4 +1,4 @@
-package lotto.controller;
+package lotto.model.service;
 
 import lombok.AllArgsConstructor;
 import lotto.model.Customer;
@@ -15,25 +15,9 @@ import java.util.stream.IntStream;
 
 @AllArgsConstructor
 public class LottoGenerator {
-
-    private final InputManager inputManager;
-    private final OutputManager outputManager;
-
-    // 구입 금액 입려과 고객 생성
-    public Customer createCustomer(){
-        while(true){
-            try{
-                int amount = inputManager.enterPurchaseAmount();
-                return Customer.createCustomer(amount);
-            }
-            catch(IllegalArgumentException e){
-                outputManager.displayErrorMessage(e.getMessage());
-            }
-        }
-    }
-
+    
     public int countLottosBasedOnAmount(Customer customer){
-        return customer.purchaseAmount()/1000;
+        return customer.getPurchaseAmount()/1000;
     }
 
     public List<Lotto> createLottos(int lottoQuantity) {

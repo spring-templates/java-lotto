@@ -15,7 +15,7 @@ public class Customer {
     private Customer(int purchaseAmount, List<Lotto> lottos) {
         validPurchaseAmount(purchaseAmount);
         this.purchaseAmount = purchaseAmount;
-        this.lottos = new ArrayList<>();
+        this.lottos = lottos;
     }
 
     private void validPurchaseAmount(int purchaseAmount) {
