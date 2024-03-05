@@ -9,12 +9,23 @@ import lotto.model.entity.Prize;
 public class LottoVendor {
     public static final Money lottoPrice = new Money(1000);
 
-    public static List<Lotto> purchase(Money money) throws IllegalArgumentException {
+    public static List<Lotto> purchase(
+            Money money
+    ) throws IllegalArgumentException {
         return new LottoGenerateService(lottoPrice).purchaseMultipleLotto(money);
     }
 
-    public static Map<Prize, Integer> calculatePrize(List<Lotto> lottoList, Lotto winningLotto,
-                                                     Integer winningBonusNumber) {
+    public static Map<Prize, Integer> calculatePrize(
+            List<Lotto> lottoList,
+            Lotto winningLotto,
+            Integer winningBonusNumber
+    ) {
         return new LottoPrizeCalculateService(winningLotto, winningBonusNumber).calculatePrize(lottoList);
+    }
+
+    public static double calculateProfitRate(
+            Map<Prize, Integer> prizeMap
+    ) {
+        return LottoPrizeCalculateService.calculateProfitRate(prizeMap);
     }
 }

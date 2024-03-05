@@ -20,7 +20,7 @@ public class LottoFactory {
         Lotto winningLotto = inputWinningLotto();
         Integer winningBonusNumber = inputBonusNumber(winningLotto);
         Map<Prize, Integer> prizeMap = calculateLottoResults(session, winningLotto, winningBonusNumber);
-        OutputView.printStatistics(LottoVendor.lottoPrice.amount(), prizeMap);
+        OutputView.printStatistics(prizeMap);
     }
 
     private static List<Lotto> purchaseLotto() {

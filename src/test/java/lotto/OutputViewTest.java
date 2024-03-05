@@ -64,7 +64,7 @@ class OutputViewTest {
     @DisplayName("콘솔로 출력되는 결과가 동일한지 확인한다.")
     @Test
     void calculatePrize() {
-        Assertions.assertDoesNotThrow(() -> OutputView.printStatistics(LottoVendor.lottoPrice.amount(),
+        Assertions.assertDoesNotThrow(() -> OutputView.printStatistics(
                 LottoVendor.calculatePrize(purchasedLottos, winningLotto, winningBonusNumber)));
 
         String expectedOutput = """

@@ -1,5 +1,7 @@
 package lotto.model.service;
 
+import static lotto.model.service.LottoVendor.lottoPrice;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,10 +13,18 @@ class LottoPrizeCalculateService {
     private final Lotto winningLotto;
     private final Integer winningBonusNumber;
 
-
     LottoPrizeCalculateService(Lotto winningLotto, Integer winningBonusNumber) {
         this.winningLotto = winningLotto;
         this.winningBonusNumber = winningBonusNumber;
+    }
+
+    static double calculateProfitRate(Map<Prize, Integer> prizeMap) {
+        double cost = 0, prize = 0;
+        for (Map.Entry<Prize, Integer> entry : prizeMap.entrySet()) {
+            cost += entry.getValue() * lottoPrice.amount();
+            prize += entry.getKey().prizeMoney() * entry.getValue();
+        }
+        return prize / cost * 100;
     }
 
     Map<Prize, Integer> calculatePrize(List<Lotto> lottoList) {
