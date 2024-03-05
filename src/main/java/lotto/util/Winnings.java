@@ -14,10 +14,10 @@ public enum Winnings {
     Second("5개 일치, 보너스 볼 일치",30000000,5,true),
     First("6개 일치", 2000000000,6,false);
 
-    private String winningDescription;
-    private int winningValue;
-    private int winningMatchCount;
-    private boolean bonusMatchCount;
+    private final String winningDescription;
+    private final int winningValue;
+    private final int winningMatchCount;
+    private final boolean bonusMatchCount;
 
     Winnings(String s, int i,int j, boolean k) {
         this.winningDescription = s;

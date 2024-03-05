@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 public class Customer {
-    private int purchaseAmount;
+    private final int purchaseAmount;
     private List<Lotto> lottos;
 
     private Customer(int purchaseAmount, List<Lotto> lottos) {
