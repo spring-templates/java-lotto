@@ -27,10 +27,6 @@ class LottoGenerateService {
         if (money == null) {
             throw new IllegalArgumentException("Invalid money. Money cannot be null.");
         }
-        if (!lottoPrice.currency().equals(money.currency())) {
-            throw new IllegalArgumentException(
-                    "Invalid money currency. The currency must match the lotto price currency.");
-        }
         if (money.amount() <= 0) {
             throw new IllegalArgumentException("Invalid money amount. The amount must be positive.");
         }

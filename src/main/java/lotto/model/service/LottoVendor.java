@@ -7,7 +7,7 @@ import lotto.model.entity.Money;
 import lotto.model.entity.Prize;
 
 public class LottoVendor {
-    public static final Money lottoPrice = new Money("원", 1000);
+    public static final Money lottoPrice = new Money(1000);
 
     public static List<Lotto> purchase(Money money) throws IllegalArgumentException {
         return new LottoGenerateService(lottoPrice).purchaseMultipleLotto(money);
