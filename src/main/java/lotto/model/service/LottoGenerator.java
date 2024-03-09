@@ -3,6 +3,7 @@ package lotto.model.service;
 import lombok.AllArgsConstructor;
 import lotto.model.Customer;
 import lotto.model.Lotto;
+import lotto.model.Money;
 import lotto.view.InputManager;
 import lotto.view.OutputManager;
 
@@ -16,8 +17,8 @@ import java.util.stream.IntStream;
 @AllArgsConstructor
 public class LottoGenerator {
     
-    public int countLottosBasedOnAmount(int purchaseAmount){
-        return purchaseAmount/1000;
+    public int countLottosBasedOnAmount(Money money){
+        return money.getMoney()/1000;
     }
 
     public List<Lotto> createLottos(int lottoQuantity) {

@@ -1,18 +1,16 @@
 package lotto.controller;
 
 import lombok.AllArgsConstructor;
+import lotto.model.Lotto;
+import lotto.model.Money;
 import lotto.model.service.LottoGenerator;
 import lotto.model.service.LottoResultCalculator;
-import lotto.model.Customer;
-import lotto.model.Lotto;
 import lotto.model.PrizeNumbers;
 import lotto.util.LottoValidator;
-import lotto.util.Winnings;
 import lotto.view.InputManager;
 import lotto.view.OutputManager;
 
 import java.util.List;
-import java.util.Map;
 
 @AllArgsConstructor
 public class LottoController {
@@ -23,25 +21,28 @@ public class LottoController {
         LottoGenerator lottoGenerator = new LottoGenerator();
         LottoResultCalculator lottoResultCalculator = new LottoResultCalculator();
 
-        Customer customer = retryCreateCustomer();
-        int lottoQuantity = lottoGenerator.countLottosBasedOnAmount(customer.getPurchaseAmount());
+        Money money = getMoneyforLotto();
+        int lottoQuantity = lottoGenerator.countLottosBasedOnAmount(money);
         outputManager.outputLottoQuantity(lottoQuantity);
-        List<Lotto> lottos = lottoGenerator.createLottos(lottoQuantity);
-        customer.withLottos(lottos);
-        outputManager.outputLottoNumbers(lottos);
-
-        PrizeNumbers prizeNumbers = retryCreatePrizeNumbers();
-        Map<Winnings,Integer> lottoResult = lottoResultCalculator.provideWinningDetails(customer.getLottos(), prizeNumbers);
-        outputManager.outputWinningDetails(lottoResult);
-        String rateOrReturn = lottoResultCalculator.calculateReturn(lottoResult, customer.getPurchaseAmount());
-        outputManager.outputRateOfReturn(rateOrReturn);
+//        List<Lotto> lottos = lottoGenerator.createLottos(lottoQuantity);
+//        customer.withLottos(lottos);
+//        outputManager.outputLottoNumbers(lottos);
+//
+//        PrizeNumbers prizeNumbers = retryCreatePrizeNumbers();
+//        Map<Winnings,Integer> lottoResult = lottoResultCalculator.provideWinningDetails(customer.getLottos(), prizeNumbers);
+//        outputManager.outputWinningDetails(lottoResult);
+//        String rateOrReturn = lottoResultCalculator.calculateReturn(lottoResult, customer.getPurchaseAmount());
+//        outputManager.outputRateOfReturn(rateOrReturn);
     }
 
-    private Customer retryCreateCustomer(){
+    // 로또를 사기위한 구입금액 입력
+    private Money getMoneyforLotto(){
         while(true){
             try{
                 int amount = inputManager.enterPurchaseAmount(); // View
-                return Customer.createCustomer(amount); // 데이터 생성
+                Money money = new Money(amount);
+                Lotto.validateMoney(money);
+                return new Money(amount); // 데이터 생성
             }
             catch(IllegalArgumentException e){
                 outputManager.displayErrorMessage(e.getMessage());
