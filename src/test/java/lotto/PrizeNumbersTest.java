@@ -1,29 +1,29 @@
 package lotto;
 
-import lotto.model.LottoValidator;
+import lotto.model.Lotto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class LottoVaildatorTest {
+public class PrizeNumbersTest {
 
     @DisplayName("당첨 번호의 개수가 6개가 아니면 예외가 발생한다.")
     @Test
     void createLottoCompanyByOverSize() {
         Assertions.assertThatThrownBy(() ->
-                        LottoValidator.checkLottoVaild(List.of(45,17,42,36,1,2,9)))
+                        Lotto.validateLottoNumbers(List.of(45,17,42,36,1,2,9)))
                 .isInstanceOf(IllegalArgumentException.class);
         Assertions.assertThatThrownBy(() ->
-                        LottoValidator.checkLottoVaild(List.of(45,17,42,36,1)))
+                        Lotto.validateLottoNumbers(List.of(45,17,42,36,1)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
     @DisplayName("당첨 번호가 유효 범위 밖에 있으면 예외가 발생한다")
     @Test
     void createLottoCompanyByWinningOverScope() {
         Assertions.assertThatThrownBy(() ->
-                LottoValidator.checkLottoVaild(List.of(45,17,42,36,1,46)))
+                Lotto.validateLottoNumbers(List.of(45,17,42,36,1,46)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -31,7 +31,7 @@ public class LottoVaildatorTest {
     @Test
     void createLottoCompanyByBonusOverScope() {
         Assertions.assertThatThrownBy(() ->
-                        LottoValidator.checkBonusNumber(List.of(45,17,42,36,1,6), 0))
+                        Lotto.validateBonusNumber(List.of(45,17,42,36,1,6), 0))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -39,7 +39,7 @@ public class LottoVaildatorTest {
     @Test
     void createLottoCompanyByOverScope() {
         Assertions.assertThatThrownBy(() ->
-                        LottoValidator.checkBonusNumber(List.of(45,17,42,36,1,46), 46))
+                        Lotto.validateBonusNumber(List.of(45,17,42,36,1,46), 46))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }

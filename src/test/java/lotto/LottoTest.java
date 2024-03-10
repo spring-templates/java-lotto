@@ -3,11 +3,19 @@ package lotto;
 import java.util.List;
 
 import lotto.model.Lotto;
+import lotto.model.Money;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class LottoTest {
+
+    @DisplayName("구매 금액이 1000으로 나눠 떨어지지 않으면 예외를 발생한다.")
+    @Test
+    void getMoneyBy1000Remainder() {
+        Assertions.assertThatThrownBy(() -> Lotto.validateMoney(new Money(1024)))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 
     @DisplayName("로또 번호가 정렬되어 저장된다.")
     @Test

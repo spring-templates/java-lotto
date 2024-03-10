@@ -1,13 +1,9 @@
 package lotto.model.service;
 
 import lombok.AllArgsConstructor;
-import lotto.model.Customer;
 import lotto.model.Lotto;
 import lotto.model.Money;
-import lotto.view.InputManager;
-import lotto.view.OutputManager;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;

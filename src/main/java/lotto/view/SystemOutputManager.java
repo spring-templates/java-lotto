@@ -1,11 +1,10 @@
 package lotto.view;
 
 import lotto.model.Lotto;
-import lotto.util.Winnings;
-
+import lotto.model.Winnings;
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class SystemOutputManager implements OutputManager{
     @Override
@@ -20,13 +19,21 @@ public class SystemOutputManager implements OutputManager{
     }
 
     @Override
-    public void outputWinningDetails(Map<Winnings, Integer> map) {
+    public void outputWinningDetails(HashMap<Winnings, Integer> map) {
         System.out.println("당첨 통계\n---");
+        StringBuilder stringBuilder = new StringBuilder();
         for(Winnings w : map.keySet()){
-            System.out.println(
-                    w.getWinningDescription()+" ("+
-                            formatNumberWithCommas(w.getWinningValue())+
-                            "원) - "+map.get(w)+"개");
+            if(w.equals(Winnings.Fail))continue;
+            stringBuilder.append(w.getWinningMatchCount());
+            stringBuilder.append("개 일치");
+            if(w.isBonusMatchCount())//w의 보너스 카운트 얻기 true면 아래 코드 실행
+                stringBuilder.append(", 보너스 볼 일치 ");
+            stringBuilder.append("(");
+            stringBuilder.append(formatNumberWithCommas(w.getWinningValue()));
+            stringBuilder.append("원) - ");
+            stringBuilder.append(map.get(w));
+            stringBuilder.append("개");
+            System.out.println(stringBuilder);
         }
     }
 
