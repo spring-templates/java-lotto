@@ -3,36 +3,36 @@ package lotto.util;
 import java.util.List;
 
 public class LottoValidator {
-    private static void checkNumberCount(List<Integer> numbers){
+    private static void validateNumberCount(List<Integer> numbers){
         if (numbers.size() != 6) {
             throw ExceptionStatus.IllegalLottoSizeException.makeException();
         }
     }
-    private static void checkNumberDuplicate(List<Integer> numbers){
+    private static void validateNumberDuplicate(List<Integer> numbers){
         int distinctSize = (int) numbers.stream().distinct().count();
         if(distinctSize != 6){
             throw ExceptionStatus.IllegalLottoDuplicationException.makeException();
         }
     }
-    private static void checkNumberLottoScope(int number){
+    private static void validateNumberLottoScope(int number){
         if(number>45 || number<=0){
             throw ExceptionStatus.IllegalLottoScopeException.makeException();
         }
     }
-    private static void checkNumbersLottoScope(List<Integer> numbers){
-        numbers.forEach(LottoValidator::checkNumberLottoScope);
+    private static void validateNumbersLottoScope(List<Integer> numbers){
+        numbers.forEach(LottoValidator::validateNumberLottoScope);
     }
-    public static void checkBonusNumber(List<Integer> winningNumbers, int bonusNumber) {
-        checkNumberLottoScope(bonusNumber);
-        LottoValidator.checkNumberLottoScope(bonusNumber); // 유효 범위
+    public static void validateBonusNumber(List<Integer> winningNumbers, int bonusNumber) {
+        validateNumberLottoScope(bonusNumber);
+        LottoValidator.validateNumberLottoScope(bonusNumber); // 유효 범위
         if(winningNumbers.contains(bonusNumber)){ // 당첨 번호와 중복 체크
             throw ExceptionStatus.IllegalBonusException.makeException();
         }
     }
 
-    public static void checkLottoVaild(List<Integer> numbers){
-        checkNumberCount(numbers);
-        checkNumberDuplicate(numbers);
-        checkNumbersLottoScope(numbers);
+    public static void validateLottoNumbers(List<Integer> numbers){
+        validateNumberCount(numbers);
+        validateNumberDuplicate(numbers);
+        validateNumbersLottoScope(numbers);
     }
 }

@@ -17,7 +17,7 @@ import java.util.stream.IntStream;
 @AllArgsConstructor
 public class LottoGenerator {
     
-    public int countLottosBasedOnAmount(Money money){
+    public int countQuentityBasedOnMoney(Money money){
         return money.getMoney()/1000;
     }
 

@@ -20,22 +20,21 @@ public class LottoController {
     public void runGame(){
         LottoGenerator lottoGenerator = new LottoGenerator();
         LottoResultCalculator lottoResultCalculator = new LottoResultCalculator();
-
+        // 돈 받고 로또 생성
         Money money = getMoneyforLotto();
-        int lottoQuantity = lottoGenerator.countLottosBasedOnAmount(money);
+        int lottoQuantity = lottoGenerator.countQuentityBasedOnMoney(money);
         outputManager.outputLottoQuantity(lottoQuantity);
-//        List<Lotto> lottos = lottoGenerator.createLottos(lottoQuantity);
-//        customer.withLottos(lottos);
-//        outputManager.outputLottoNumbers(lottos);
-//
-//        PrizeNumbers prizeNumbers = retryCreatePrizeNumbers();
+        List<Lotto> lottos = lottoGenerator.createLottos(lottoQuantity);
+        outputManager.outputLottoNumbers(lottos);
+
+        PrizeNumbers prizeNumbers = retryCreatePrizeNumbers();
 //        Map<Winnings,Integer> lottoResult = lottoResultCalculator.provideWinningDetails(customer.getLottos(), prizeNumbers);
 //        outputManager.outputWinningDetails(lottoResult);
 //        String rateOrReturn = lottoResultCalculator.calculateReturn(lottoResult, customer.getPurchaseAmount());
 //        outputManager.outputRateOfReturn(rateOrReturn);
     }
 
-    // 로또를 사기위한 구입금액 입력
+    // 로또를 사기 위한 구입 금액 입력
     private Money getMoneyforLotto(){
         while(true){
             try{
@@ -49,18 +48,20 @@ public class LottoController {
             }
         }
     }
+
     private PrizeNumbers retryCreatePrizeNumbers(){
-        List<Integer> winningNumbers = getWinningNumbers();
-        int bonusNumber = getBonusNumber(winningNumbers);
+        List<Integer> winningNumbers = retryWinningNumbers();
+        int bonusNumber = retryBonusNumber(winningNumbers);
         return new PrizeNumbers(winningNumbers, bonusNumber);
     }
 
-    private List<Integer> getWinningNumbers(){
+    // Lotto를 위한 당첨금 받기
+    private List<Integer> retryWinningNumbers(){
         while(true){
             try{
                 outputManager.displayWinningNumbersRequest();
                 List<Integer> winningNumbers = inputManager.enterWinningNumbers();
-                LottoValidator.checkLottoVaild(winningNumbers);
+                PrizeNumbers.validateLottoNumbers(winningNumbers);
                 return winningNumbers;
             }
             catch(IllegalArgumentException e){
@@ -68,13 +69,13 @@ public class LottoController {
             }
         }
     }
-
-    private int getBonusNumber(List<Integer> winningNumbers){
+    // Lotto를 위한 보너스 받기
+    private int retryBonusNumber(List<Integer> winningNumbers){
         while(true){
             try{
                 outputManager.displayBonusNumberRequest();
                 int bonusNumber = inputManager.enterBonusNumber();
-                LottoValidator.checkBonusNumber(winningNumbers, bonusNumber);
+                PrizeNumbers.validateBonusNumber(winningNumbers, bonusNumber);
                 return bonusNumber;
             }
             catch(IllegalArgumentException e){

@@ -28,7 +28,7 @@ public class UserInputManager implements InputManager {
                 list.add(Integer.parseInt(st.nextToken()));
             }
         }catch (IOException e){
-            System.out.println(e.getMessage());
+            throw new IllegalArgumentException("[ERROR] 당첨금은 정수일 때 입력할 수 있어요.");
         }
         return list;
     }
@@ -38,8 +38,7 @@ public class UserInputManager implements InputManager {
         try{
             return Integer.parseInt(br.readLine());
         }catch (IOException e){
-            System.out.println(e.getMessage());
-            return 0;
+            throw new IllegalArgumentException("[ERROR] 당첨금은 정수일 때 입력할 수 있어요.");
         }
     }
 }
