@@ -21,14 +21,14 @@ public class SystemOutputManager implements OutputManager{
     @Override
     public void outputWinningDetails(HashMap<Winnings, Integer> map) {
         System.out.println("당첨 통계\n---");
-        StringBuilder stringBuilder = new StringBuilder();
         for(Winnings w : map.keySet()){
+            StringBuilder stringBuilder = new StringBuilder();
             if(w.equals(Winnings.Fail))continue;
             stringBuilder.append(w.getWinningMatchCount());
             stringBuilder.append("개 일치");
             if(w.isBonusMatchCount())//w의 보너스 카운트 얻기 true면 아래 코드 실행
-                stringBuilder.append(", 보너스 볼 일치 ");
-            stringBuilder.append("(");
+                stringBuilder.append(", 보너스 볼 일치");
+            stringBuilder.append(" (");
             stringBuilder.append(formatNumberWithCommas(w.getWinningValue()));
             stringBuilder.append("원) - ");
             stringBuilder.append(map.get(w));
