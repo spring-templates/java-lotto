@@ -1,11 +1,10 @@
-package lotto;
+package lotto.model.entity;
 
-import lotto.model.entity.Money;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class MoneyTest {
+class MoneyGenerateTest {
     @DisplayName("돈의 액수가 음수이면 예외가 발생한다.")
     @Test
     void createMoneyByNegative() {

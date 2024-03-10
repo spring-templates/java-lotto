@@ -1,18 +1,16 @@
-package lotto;
+package lotto.model.entity;
 
 import java.util.List;
-import lotto.model.entity.Lotto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class LottoTest {
+class LottoGenerateTest {
 
     @DisplayName("로또 번호가 1부터 45까지의 숫자로 중복없는 6개의 숫자라면 생성에 성공한다.")
     @Test
     void createLotto() {
-        Assertions.assertThatCode(() -> new Lotto(List.of(1, 2, 3, 4, 5, 6)))
-                .doesNotThrowAnyException();
+        Assertions.assertThatCode(() -> new Lotto(List.of(1, 2, 3, 4, 5, 45))).doesNotThrowAnyException();
     }
 
     @DisplayName("로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.")

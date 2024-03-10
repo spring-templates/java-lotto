@@ -3,66 +3,78 @@ package lotto.model.entity;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import lotto.util.LottoEnum;
 
-public record Lotto(SortedSet<Integer> numbers) {
-    private static final int MIN_NUMBER = 1;
-    private static final int MAX_NUMBER = 45;
-    private static final int REQUIRED_LENGTH = 6;
+public record Lotto(SortedSet<Integer> numbers) implements Priced {
 
-    public Lotto {
-        validate(numbers);
+    public Lotto(SortedSet<Integer> numbers) {
+        this.numbers = numbers;
+        validate();
     }
 
     public Lotto(List<Integer> numbers) {
         this(new TreeSet<>(numbers));
-    }
-
-    public static void validate(List<Integer> numbers) {
-        if (numbers == null) {
-            throw new IllegalArgumentException("Numbers must not be null");
-        }
-        if (numbers.size() != REQUIRED_LENGTH) {
-            throw new IllegalArgumentException(
-                    "Numbers must contain exactly " + REQUIRED_LENGTH + " elements");
-        }
-        validate(new TreeSet<>(numbers));
-    }
-
-    public static void validate(SortedSet<Integer> numbers) throws IllegalArgumentException {
-        if (numbers == null) {
-            throw new IllegalArgumentException("Numbers must not be null");
-        }
-        if (numbers.size() != REQUIRED_LENGTH) {
-            throw new IllegalArgumentException(
-                    "Numbers must contain " + REQUIRED_LENGTH + " elements without duplicates");
-        }
-        numbers.forEach(Lotto::validate);
-    }
-
-    public static void validate(Integer number) throws IllegalArgumentException {
-        if (number == null) {
-            throw new IllegalArgumentException("Number must not be null");
-        }
-        if (number < MIN_NUMBER || number > MAX_NUMBER) {
-            throw new IllegalArgumentException("Number must be between " + MIN_NUMBER + " and " + MAX_NUMBER);
+        int NUMBER_LENGTH = LottoEnum.NUMBER_LENGTH.getValue();
+        if (numbers.size() != NUMBER_LENGTH) {
+            throw new IllegalArgumentException("로또 번호는 " + NUMBER_LENGTH + "개여야 합니다.");
         }
     }
 
-    public static Lotto of(List<Integer> numbers) {
-        SortedSet<Integer> sortedNumbers = new TreeSet<>(numbers);
-        validate(sortedNumbers);
-        return new Lotto(sortedNumbers);
+    private void validate() {
+        int NUMBER_LENGTH = LottoEnum.NUMBER_LENGTH.getValue();
+        int MIN_NUMBER = LottoEnum.MIN_NUMBER.getValue();
+        int MAX_NUMBER = LottoEnum.MAX_NUMBER.getValue();
+        if (numbers.size() != NUMBER_LENGTH) {
+            throw new IllegalArgumentException("로또 번호는 중복 없는 숫자 " + NUMBER_LENGTH + "개여야 합니다.");
+        }
+        if (numbers.first() < MIN_NUMBER || numbers.last() > MAX_NUMBER) {
+            throw new IllegalArgumentException("각각의 로또 번호는 " + MIN_NUMBER + "이상 " + MAX_NUMBER + "이하의 숫자여야 합니다.");
+        }
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
-        for (int number : numbers) {
-            sb.append(number).append(", ");
+        return numbers.toString();
+    }
+
+    @Override
+    public Money getPrice() {
+        int value = LottoEnum.PRICE.getValue();
+        return new Money(value);
+    }
+
+    public int countMatch(Lotto lotto) {
+        long count = numbers.stream().filter(lotto.numbers::contains).count();
+        return (int) count;
+    }
+
+    public boolean contains(Integer number) {
+        return numbers.contains(number);
+    }
+
+    public boolean contains(LottoBonusNumber bonusNumber) {
+        return contains(bonusNumber.number);
+    }
+
+    public static final class LottoBonusNumber {
+        final int number;
+
+        public LottoBonusNumber(Lotto winningLotto, int number) {
+            this.number = number;
+            validate(winningLotto);
         }
-        sb.delete(sb.length() - 2, sb.length());
-        sb.append("]");
-        return sb.toString();
+
+        private void validate(Lotto winningLotto) {
+            int MIN_NUMBER = LottoEnum.MIN_NUMBER.getValue();
+            int MAX_NUMBER = LottoEnum.MAX_NUMBER.getValue();
+            if (number < MIN_NUMBER || number > MAX_NUMBER) {
+                throw new IllegalArgumentException("보너스 번호는 " + MIN_NUMBER + "이상 " + MAX_NUMBER + "이하의 숫자여야 합니다.");
+            }
+
+            if (winningLotto.numbers().contains(number)) {
+                throw new IllegalArgumentException("보너스 번호는 당첨 번호와 중복될 수 없습니다.");
+            }
+        }
+
     }
 }

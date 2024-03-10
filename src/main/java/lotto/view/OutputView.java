@@ -1,31 +1,55 @@
 package lotto.view;
 
-import static lotto.model.service.LottoVendor.calculateProfitRate;
-
-import java.util.Comparator;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
+import java.util.SortedMap;
 import lotto.model.entity.Lotto;
-import lotto.model.entity.Prize;
+import lotto.model.literal.LottoPrize;
+import lotto.model.vendor.prize.IPrizeVendor;
+import lotto.view.literal.ConsoleEnum;
 
 public class OutputView {
 
-    public static void printLotto(List<Lotto> lottoList) {
-        System.out.println(lottoList.size() + "개를 구매했습니다.");
+    public static void printLotto(Collection<Lotto> lottoList) {
+        System.out.printf(ConsoleEnum.LOTTO_OUTPUT_HEADER_FORMAT.getValue(), lottoList.size());
         lottoList.forEach(System.out::println);
     }
 
-    public static void printStatistics(Map<Prize, Integer> prizeMap) {
-        System.out.println("당첨 통계");
-        System.out.println("---");
-        // 상금이 적은 순서대로 출력
-        prizeMap.entrySet().stream()
-                .filter(entry -> entry.getKey().prizeMoney() > 0)
-                .sorted(Comparator.comparingInt(Entry::hashCode))
-                .forEach(entry -> System.out.printf("%s - %d개%n", entry.getKey(), entry.getValue()));
-        System.out.printf("총 수익률은 %.1f%%입니다.", calculateProfitRate(prizeMap));
+    public static void printStatistics(
+            IPrizeVendor<Lotto, LottoPrize> lottoVendor,
+            List<Lotto> lottoList
+    ) {
+        System.out.println(ConsoleEnum.STATISTICS_OUTPUT_HEADER.getValue());
+        SortedMap<LottoPrize, Integer> prizeMap = lottoVendor.countPrize(lottoList);
+        prizeMap.forEach((k, v) -> System.out.println(formatLottoPrize(k, v)));
+        System.out.println(formatProfitRate(lottoVendor, prizeMap));
+    }
+
+    private static String formatLottoPrize(
+            LottoPrize key,
+            Integer value
+    ) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format(
+                ConsoleEnum.PRIZE_MATCHED_NUMBER_OUTPUT_FORMAT.getValue(),
+                key.getMatchCount()));
+        if (key.getBonusMatched()) {
+            sb.append(ConsoleEnum.STATISTICS_BONUS_OUTPUT_FORMAT.getValue());
+        }
+        sb.append(String.format(ConsoleEnum.PRIZE_WITH_CURRENCY_OUTPUT_FORMAT.getValue(), key.getPrice().amount()));
+        sb.append(String.format(ConsoleEnum.PRIZE_NUMBER_OUTPUT_FORMAT.getValue(), value));
+        return sb.toString();
     }
 
 
+    private static String formatProfitRate(
+            IPrizeVendor<Lotto, LottoPrize> vendor,
+            Map<LottoPrize, Integer> prizeMap
+    ) {
+        return String.format(
+                ConsoleEnum.PROFIT_RATE_OUTPUT_FORMAT.getValue(),
+                vendor.calculateProfitRate(prizeMap)
+        );
+    }
 }

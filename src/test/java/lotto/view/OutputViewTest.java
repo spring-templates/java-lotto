@@ -1,11 +1,11 @@
-package lotto;
+package lotto.view;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.List;
 import lotto.model.entity.Lotto;
-import lotto.model.service.LottoVendor;
-import lotto.view.OutputView;
+import lotto.model.entity.Lotto.LottoBonusNumber;
+import lotto.model.vendor.prize.LottoPrizeVendor;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,14 +14,13 @@ import org.junit.jupiter.api.Test;
 
 class OutputViewTest {
 
-    private final Lotto winningLotto;
-    private final int winningBonusNumber;
     private final List<Lotto> purchasedLottos;
+    private final Lotto winningLotto;
+    private final LottoBonusNumber winningBonusNumber;
     ByteArrayOutputStream outputStreamCaptor;
 
+
     public OutputViewTest() {
-        winningLotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
-        winningBonusNumber = 7;
         purchasedLottos = List.of(
                 new Lotto(List.of(1, 2, 3, 4, 5, 6)),
                 new Lotto(List.of(1, 2, 3, 4, 5, 7)),
@@ -29,6 +28,8 @@ class OutputViewTest {
                 new Lotto(List.of(1, 2, 3, 4, 44, 45)),
                 new Lotto(List.of(1, 2, 3, 43, 44, 45))
         );
+        winningLotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+        winningBonusNumber = new LottoBonusNumber(winningLotto, 7);
     }
 
     @BeforeEach
@@ -45,7 +46,9 @@ class OutputViewTest {
     @DisplayName("구매한 로또를 콘솔로 출력한다.")
     @Test
     void printLotto() {
-        Assertions.assertDoesNotThrow(() -> OutputView.printLotto(purchasedLottos));
+        Assertions.assertDoesNotThrow(() -> OutputView.printLotto(
+                purchasedLottos
+        ));
 
         String expectedOutput = """
                 5개를 구매했습니다.
@@ -64,8 +67,10 @@ class OutputViewTest {
     @DisplayName("콘솔로 출력되는 결과가 동일한지 확인한다.")
     @Test
     void calculatePrize() {
-        Assertions.assertDoesNotThrow(() -> OutputView.printStatistics(
-                LottoVendor.calculatePrize(purchasedLottos, winningLotto, winningBonusNumber)));
+
+        LottoPrizeVendor lottoVendor = new LottoPrizeVendor(winningLotto, winningBonusNumber);
+
+        OutputView.printStatistics(lottoVendor, purchasedLottos);
 
         String expectedOutput = """
                 당첨 통계

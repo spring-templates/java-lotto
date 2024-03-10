@@ -1,9 +1,10 @@
 //package lotto;
 //
+//import lotto.util.GlobalExceptionMessageEnum;
 //import org.junit.jupiter.api.Test;
 //
 //class ApplicationTest {
-//    private static final String ERROR_MESSAGE = "[ERROR]";
+//    private static final String ERROR_MESSAGE = GlobalExceptionMessageEnum.ERROR_MESSAGE.getValue();
 //
 //    /**
 //     * This test case is designed to test the main functionality of the application. The main method is called with the

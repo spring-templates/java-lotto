@@ -1,4 +1,4 @@
-package lotto.model.service;
+package lotto.model.vendor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,18 +6,17 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import lotto.model.entity.Lotto;
 import lotto.model.entity.Money;
+import lotto.util.LottoEnum;
 
 class LottoGenerateService {
-    private final Money lottoPrice;
 
-    LottoGenerateService(Money lottoPrice) {
-        this.lottoPrice = lottoPrice;
-    }
+    private final int price = LottoEnum.PRICE.getValue();
 
     List<Lotto> purchaseMultipleLotto(Money money) throws IllegalArgumentException {
         validateMoney(money);
         List<Lotto> lottoList = new ArrayList<>();
-        for (int i = money.amount(); i > 0; i -= lottoPrice.amount()) {
+        int numberOfLottoShouldBePurchased = money.amount() / price;
+        while (lottoList.size() < numberOfLottoShouldBePurchased) {
             lottoList.add(generateSingleLotto());
         }
         return lottoList;
@@ -30,23 +29,24 @@ class LottoGenerateService {
         if (money.amount() <= 0) {
             throw new IllegalArgumentException("Invalid money amount. The amount must be positive.");
         }
-        if (money.amount() % lottoPrice.amount() != 0) {
+        if (money.amount() % price != 0) {
             throw new IllegalArgumentException(
-                    String.format("Invalid money amount. The amount must be a multiple of %d.", lottoPrice.amount()));
+                    String.format("Invalid money amount. The amount must be a multiple of %d.", price));
         }
     }
 
     private Lotto generateSingleLotto() {
-        return new Lotto(generateUniqueNumbers(6));
+        return new Lotto(generateUniqueNumbers());
     }
 
-    private SortedSet<Integer> generateUniqueNumbers(int n) throws IllegalArgumentException {
-        if (n <= 0) {
-            throw new IllegalArgumentException("Invalid number of elements. Number of elements must be positive.");
-        }
+    private SortedSet<Integer> generateUniqueNumbers() {
+        int n = LottoEnum.NUMBER_LENGTH.getValue();
+        int max = LottoEnum.MAX_NUMBER.getValue();
+        int min = LottoEnum.MIN_NUMBER.getValue();
+
         SortedSet<Integer> uniqueNumbers = new TreeSet<>();
         while (uniqueNumbers.size() < n) {
-            int randomNumber = (int) (Math.random() * 45) + 1;
+            int randomNumber = (int) (Math.random() * max) + min;
             uniqueNumbers.add(randomNumber);
         }
         return uniqueNumbers;

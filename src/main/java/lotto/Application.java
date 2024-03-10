@@ -1,9 +1,9 @@
 package lotto;
 
-import lotto.controller.LottoFactory;
+import lotto.controller.LottoFactoryProxy;
 
 public class Application {
     public static void main(String[] args) {
-        LottoFactory.run();
+        new LottoFactoryProxy().run();
     }
 }
