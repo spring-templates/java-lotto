@@ -1,14 +1,9 @@
 package lotto.view.input;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
+import java.util.*;
 import java.util.function.Supplier;
-import lotto.model.entity.Lotto;
-import lotto.model.entity.Lotto.LottoBonusNumber;
-import lotto.model.entity.Money;
-import lotto.view.literal.ConsoleEnum;
+import lotto.model.entity.*;
+import lotto.view.ConsoleEnum;
 
 class InputViewImpl implements IInputView {
 

@@ -1,15 +1,10 @@
 package lotto.model.vendor;
 
-import java.util.List;
-import java.util.Map;
-import lotto.model.entity.Lotto;
-import lotto.model.entity.Lotto.LottoBonusNumber;
-import lotto.model.literal.LottoPrize;
+import java.util.*;
+import lotto.model.entity.*;
 import lotto.model.vendor.prize.LottoPrizeVendor;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 class PrizeGenerateTest {
     Lotto winningLotto;

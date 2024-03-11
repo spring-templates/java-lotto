@@ -1,16 +1,10 @@
 package lotto.view;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.List;
-import lotto.model.entity.Lotto;
-import lotto.model.entity.Lotto.LottoBonusNumber;
+import lotto.model.entity.*;
 import lotto.model.vendor.prize.LottoPrizeVendor;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 class OutputViewTest {
 

@@ -1,13 +1,8 @@
 package lotto.view;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.SortedMap;
-import lotto.model.entity.Lotto;
-import lotto.model.literal.LottoPrize;
+import java.util.*;
+import lotto.model.entity.*;
 import lotto.model.vendor.prize.IPrizeVendor;
-import lotto.view.literal.ConsoleEnum;
 
 public class OutputView {
 

@@ -1,11 +1,7 @@
 package lotto.model.vendor;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
-import lotto.model.entity.Lotto;
-import lotto.model.entity.Money;
+import java.util.*;
+import lotto.model.entity.*;
 import lotto.util.LottoEnum;
 
 class LottoGenerateService {

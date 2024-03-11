@@ -3,11 +3,8 @@ package lotto.view;
 import java.io.ByteArrayInputStream;
 import java.util.List;
 import lotto.model.entity.Lotto;
-import lotto.view.input.IInputView;
-import lotto.view.input.InputViewProxy;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import lotto.view.input.*;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 

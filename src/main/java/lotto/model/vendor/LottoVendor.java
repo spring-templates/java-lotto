@@ -1,8 +1,7 @@
 package lotto.model.vendor;
 
 import java.util.List;
-import lotto.model.entity.Lotto;
-import lotto.model.entity.Money;
+import lotto.model.entity.*;
 
 public class LottoVendor implements IVendor<Lotto> {
     private final LottoGenerateService generator;

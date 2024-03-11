@@ -1,8 +1,5 @@
-package lotto.view.literal;
+package lotto.view;
 
-import lombok.Getter;
-
-@Getter
 public enum ConsoleEnum {
     PURCHASE_MONEY_INPUT_HEADER("구입금액을 입력해 주세요."),
     WINNING_NUMBER_INPUT_HEADER("당첨 번호를 입력해 주세요."),
@@ -22,4 +19,7 @@ public enum ConsoleEnum {
         this.value = value;
     }
 
+    public String getValue() {
+        return value;
+    }
 }

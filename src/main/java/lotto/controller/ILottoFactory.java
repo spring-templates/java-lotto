@@ -1,8 +1,7 @@
 package lotto.controller;
 
 import java.util.List;
-import lotto.model.entity.Lotto;
-import lotto.model.entity.Lotto.LottoBonusNumber;
+import lotto.model.entity.*;
 import lotto.model.vendor.IVendor;
 import lotto.model.vendor.prize.LottoPrizeVendor;
 

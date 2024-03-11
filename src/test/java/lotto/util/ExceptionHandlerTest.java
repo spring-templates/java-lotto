@@ -1,8 +1,7 @@
 package lotto.util;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 public class ExceptionHandlerTest {
     @DisplayName("예외 메세지 출력 테스트")

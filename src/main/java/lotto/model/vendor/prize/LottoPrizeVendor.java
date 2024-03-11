@@ -1,11 +1,7 @@
 package lotto.model.vendor.prize;
 
-import java.util.List;
-import java.util.Map;
-import java.util.SortedMap;
-import lotto.model.entity.Lotto;
-import lotto.model.entity.Lotto.LottoBonusNumber;
-import lotto.model.literal.LottoPrize;
+import java.util.*;
+import lotto.model.entity.*;
 import lotto.model.vendor.LottoVendor;
 
 public class LottoPrizeVendor extends LottoVendor implements IPrizeVendor<Lotto, LottoPrize> {

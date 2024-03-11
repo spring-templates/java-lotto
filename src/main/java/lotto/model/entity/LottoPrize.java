@@ -1,7 +1,4 @@
-package lotto.model.literal;
-
-import lotto.model.entity.Money;
-import lotto.model.entity.Priced;
+package lotto.model.entity;
 
 public enum LottoPrize implements Priced {
     OTHERS(LottoPrizeCondition.OTHERS, 0),

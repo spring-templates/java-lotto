@@ -1,8 +1,6 @@
 package lotto.view.input;
 
-import lotto.model.entity.Lotto;
-import lotto.model.entity.Lotto.LottoBonusNumber;
-import lotto.model.entity.Money;
+import lotto.model.entity.*;
 
 public interface IInputView {
     Money inputLottoExpense();

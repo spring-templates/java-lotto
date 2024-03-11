@@ -1,8 +1,5 @@
 package lotto.util;
 
-import lombok.Getter;
-
-@Getter
 public enum LottoEnum {
     MAX_NUMBER(45),
     MIN_NUMBER(1),
@@ -15,4 +12,7 @@ public enum LottoEnum {
         this.value = value;
     }
 
+    public int getValue() {
+        return value;
+    }
 }
