@@ -1,7 +1,5 @@
 package lotto.model;
 
-import java.util.function.Function;
-
 public enum LottoDefinition {
     MaximumNumber(45),
     MinimunNumber(1),

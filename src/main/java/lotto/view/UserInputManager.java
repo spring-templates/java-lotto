@@ -14,7 +14,7 @@ public class UserInputManager implements InputManager {
     public int enterPurchaseAmount() {
         try{
             return Integer.parseInt(br.readLine());
-        }catch (IOException e){
+        } catch (NumberFormatException | IOException e){
             throw new IllegalArgumentException("[ERROR] 당첨금은 정수일 때 입력할 수 있어요.");
         }
     }
