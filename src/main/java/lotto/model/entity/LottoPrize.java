@@ -1,7 +1,7 @@
 package lotto.model.entity;
 
 public enum LottoPrize implements Priced {
-    OTHERS(LottoPrizeCondition.OTHERS, 0),
+    NONE(LottoPrizeCondition.OTHERS, 0),
     FIFTH(LottoPrizeCondition.FIFTH, 5_000),
     FOURTH(LottoPrizeCondition.FOURTH, 50_000),
     THIRD(LottoPrizeCondition.THIRD, 1_500_000),
@@ -26,7 +26,7 @@ public enum LottoPrize implements Priced {
                 return prize;
             }
         }
-        return OTHERS;
+        return NONE;
     }
 
     public int getMatchCount() {
