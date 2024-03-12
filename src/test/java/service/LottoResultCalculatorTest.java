@@ -1,10 +1,10 @@
 package service;
 
 import lotto.model.Lotto;
-import lotto.model.Money;
-import lotto.model.PrizeNumbers;
+import lotto.model.dto.Money;
+import lotto.model.dto.PrizeNumbers;
 import lotto.model.service.LottoResultCalculator;
-import lotto.model.Winnings;
+import lotto.model.enums.Winnings;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

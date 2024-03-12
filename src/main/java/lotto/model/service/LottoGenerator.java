@@ -1,17 +1,21 @@
 package lotto.model.service;
 
-import lombok.AllArgsConstructor;
 import lotto.model.Lotto;
-import lotto.model.Money;
+import lotto.model.dto.Money;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-@AllArgsConstructor
 public class LottoGenerator {
+    private final Random random;
+    // 더 쉬운 테스트를 위해 Random을 주입하는 방식 사용
+    public LottoGenerator(Random random){
+        this.random = random;
+    }
     
     public int countQuentityBasedOnMoney(Money money){
         return money.getMoney()/1000;
@@ -26,7 +30,7 @@ public class LottoGenerator {
     private Lotto createSingleLotto(){
         Set<Integer> numbers = new HashSet<>();
         while(numbers.size()<=5) {
-            int temp = (int) (Math.random() * 45 + 1); // 1~45 사이 값 무작위로 추출
+            int temp = random.nextInt(45) + 1; // 1~45 사이 값 무작위로 추출
             numbers.add(temp);
         }
         return new Lotto(numbers.stream().toList());

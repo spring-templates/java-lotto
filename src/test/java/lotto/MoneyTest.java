@@ -1,6 +1,6 @@
 package lotto;
 
-import lotto.model.Money;
+import lotto.model.dto.Money;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 

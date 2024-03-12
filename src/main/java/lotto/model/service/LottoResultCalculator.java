@@ -2,14 +2,13 @@ package lotto.model.service;
 
 import lombok.AllArgsConstructor;
 import lotto.model.Lotto;
-import lotto.model.Money;
-import lotto.model.PrizeNumbers;
-import lotto.model.Winnings;
+import lotto.model.dto.Money;
+import lotto.model.dto.PrizeNumbers;
+import lotto.model.enums.Winnings;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 @AllArgsConstructor
 public class LottoResultCalculator {

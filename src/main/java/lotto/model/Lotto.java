@@ -1,5 +1,7 @@
 package lotto.model;
 
+import lotto.model.dto.Money;
+import lotto.model.enums.LottoDefinition;
 import java.util.List;
 import java.util.stream.Collectors;
 

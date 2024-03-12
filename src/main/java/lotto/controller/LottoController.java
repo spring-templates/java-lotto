@@ -2,16 +2,17 @@ package lotto.controller;
 
 import lombok.AllArgsConstructor;
 import lotto.model.Lotto;
-import lotto.model.Money;
+import lotto.model.dto.Money;
 import lotto.model.service.LottoGenerator;
 import lotto.model.service.LottoResultCalculator;
-import lotto.model.PrizeNumbers;
-import lotto.model.Winnings;
+import lotto.model.dto.PrizeNumbers;
+import lotto.model.enums.Winnings;
 import lotto.view.InputManager;
 import lotto.view.OutputManager;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 @AllArgsConstructor
 public class LottoController {
@@ -19,7 +20,7 @@ public class LottoController {
     private final OutputManager outputManager;
     // 입력 처리 및 비즈니스 로직 통제
     public void runGame(){
-        LottoGenerator lottoGenerator = new LottoGenerator();
+        LottoGenerator lottoGenerator = new LottoGenerator(new Random());
         LottoResultCalculator lottoResultCalculator = new LottoResultCalculator();
         // 돈 받고 로또 생성
         Money money = getMoneyForLotto();

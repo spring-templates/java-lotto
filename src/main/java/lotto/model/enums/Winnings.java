@@ -1,4 +1,4 @@
-package lotto.model;
+package lotto.model.enums;
 
 import lombok.Getter;
 import java.util.Arrays;

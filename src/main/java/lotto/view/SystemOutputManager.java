@@ -1,7 +1,7 @@
 package lotto.view;
 
 import lotto.model.Lotto;
-import lotto.model.Winnings;
+import lotto.model.enums.Winnings;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;

@@ -1,11 +1,10 @@
 package lotto.view;
 
 import lotto.model.Lotto;
-import lotto.model.Winnings;
+import lotto.model.enums.Winnings;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public interface OutputManager {
     void outputLottoQuantity(int quantity);

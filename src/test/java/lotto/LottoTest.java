@@ -3,7 +3,7 @@ package lotto;
 import java.util.List;
 
 import lotto.model.Lotto;
-import lotto.model.Money;
+import lotto.model.dto.Money;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

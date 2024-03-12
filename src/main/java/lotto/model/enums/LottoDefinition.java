@@ -1,5 +1,8 @@
-package lotto.model;
+package lotto.model.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum LottoDefinition {
     MaximumNumber(45),
     MinimunNumber(1),
@@ -10,8 +13,5 @@ public enum LottoDefinition {
 
     LottoDefinition(int number){
         this.number = number;
-    }
-    public int getNumber(){
-        return number;
     }
 }
