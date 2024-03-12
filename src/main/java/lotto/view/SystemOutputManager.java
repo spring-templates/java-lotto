@@ -48,7 +48,7 @@ public class SystemOutputManager implements OutputManager{
     }
 
     @Override
-    public void displayErrorMessage(String message) {
+    public void displayMessage(String message) {
         System.out.println(message);
     }
 

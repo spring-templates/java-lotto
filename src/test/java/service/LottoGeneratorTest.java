@@ -35,12 +35,8 @@ public class LottoGeneratorTest {
         // 한 스레드에서 static 모킹은 한번밖에 못하므로 close하지 않으면 여러 테스트 도중 이미 존재하는 mock이라는 에러가 발생한다.
         // try-resources 구문을 사용하면 자동으로 메모리 해제한다.
         Random randomNumberMock = Mockito .mock(Random.class);
-        when(randomNumberMock.nextInt(45)).thenReturn(1)
-                .thenReturn(33)
-                .thenReturn(32)
-                .thenReturn(31)
-                .thenReturn(30)
-                .thenReturn(34);
+        when(randomNumberMock.nextInt(45))
+                .thenReturn(1,33,32,31,30,34);
 
         LottoGenerator lottoGenerator = new LottoGenerator(randomNumberMock);
         // When

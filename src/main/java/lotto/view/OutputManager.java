@@ -11,7 +11,7 @@ public interface OutputManager {
     void outputLottoNumbers(List<Lotto> lottoList);
     void outputWinningDetails(HashMap<Winnings, Integer> map);
     void outputRateOfReturn(String rateOfReturn);
-    void displayErrorMessage(String message);
+    void displayMessage(String message);
     void displayWinningNumbersRequest();
     void displayBonusNumberRequest();
 }

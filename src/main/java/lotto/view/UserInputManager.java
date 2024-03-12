@@ -1,20 +1,21 @@
 package lotto.view;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class UserInputManager implements InputManager {
-    private final BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); // 선언
+    private final Scanner scanner;// 선언
+
+    // 생성자에서 Scanner 주입
+    public UserInputManager(Scanner scanner) {
+        this.scanner = scanner;
+    }
     @Override
     public int enterPurchaseAmount() {
         try{
-            return Integer.parseInt(br.readLine());
-        } catch (NumberFormatException | IOException e){
+            StringTokenizer st = new StringTokenizer(scanner.nextLine());
+            return Integer.parseInt(st.nextToken());
+        } catch (NumberFormatException | InputMismatchException e){
             throw new IllegalArgumentException("[ERROR] 당첨금은 정수일 때 입력할 수 있어요.");
         }
     }
@@ -23,11 +24,11 @@ public class UserInputManager implements InputManager {
     public List<Integer> enterWinningNumbers() {
         List<Integer> list = new ArrayList<>();
         try{
-            StringTokenizer st = new StringTokenizer(br.readLine());
+            StringTokenizer st = new StringTokenizer(scanner.nextLine());
             while(st.hasMoreTokens()) { //hasMoreTokens() : 토큰이 남아있다면 true, 없으면 false 리턴
                 list.add(Integer.parseInt(st.nextToken()));
             }
-        }catch (IOException e){
+        }catch (NumberFormatException e){
             throw new IllegalArgumentException("[ERROR] 당첨금은 정수일 때 입력할 수 있어요.");
         }
         return list;
@@ -36,8 +37,8 @@ public class UserInputManager implements InputManager {
     @Override
     public int enterBonusNumber() {
         try{
-            return Integer.parseInt(br.readLine());
-        }catch (IOException e){
+            return Integer.parseInt(scanner.nextLine());
+        }catch (NumberFormatException | InputMismatchException e){
             throw new IllegalArgumentException("[ERROR] 당첨금은 정수일 때 입력할 수 있어요.");
         }
     }

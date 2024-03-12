@@ -18,9 +18,10 @@ import java.util.Random;
 public class LottoController {
     private final InputManager inputManager;
     private final OutputManager outputManager;
+    private final Random random;
     // 입력 처리 및 비즈니스 로직 통제
     public void runGame(){
-        LottoGenerator lottoGenerator = new LottoGenerator(new Random());
+        LottoGenerator lottoGenerator = new LottoGenerator(random);
         LottoResultCalculator lottoResultCalculator = new LottoResultCalculator();
         // 돈 받고 로또 생성
         Money money = getMoneyForLotto();
@@ -40,13 +41,14 @@ public class LottoController {
     private Money getMoneyForLotto(){
         while(true){
             try{
+                outputManager.displayMessage("구입금액을 입력해 주세요.");
                 int amount = inputManager.enterPurchaseAmount(); // View
                 Money money = new Money(amount);
                 Lotto.validateMoney(money);
                 return new Money(amount); // 데이터 생성
             }
             catch(IllegalArgumentException e){
-                outputManager.displayErrorMessage(e.getMessage());
+                outputManager.displayMessage(e.getMessage());
             }
         }
     }
@@ -67,7 +69,7 @@ public class LottoController {
                 return winningNumbers;
             }
             catch(IllegalArgumentException e){
-                outputManager.displayErrorMessage(e.getMessage());
+                outputManager.displayMessage(e.getMessage());
             }
         }
     }
@@ -81,7 +83,7 @@ public class LottoController {
                 return bonusNumber;
             }
             catch(IllegalArgumentException e){
-                outputManager.displayErrorMessage(e.getMessage());
+                outputManager.displayMessage(e.getMessage());
             }
         }
     }

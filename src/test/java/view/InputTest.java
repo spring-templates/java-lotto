@@ -5,6 +5,9 @@ import lotto.view.UserInputManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.io.ByteArrayInputStream;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 import org.assertj.core.api.Assertions;
 
 public class InputTest {
@@ -16,7 +19,7 @@ public class InputTest {
         // Given
         ByteArrayInputStream in = new ByteArrayInputStream("10000".getBytes());
         System.setIn(in);
-        InputManager inputManager = new UserInputManager();
+        InputManager inputManager = new UserInputManager(new Scanner(System.in));
 
         // When
         int purchaseAmount = inputManager.enterPurchaseAmount();
@@ -32,7 +35,7 @@ public class InputTest {
         // Given
         ByteArrayInputStream in = new ByteArrayInputStream("10000.1".getBytes());
         System.setIn(in);
-        InputManager inputManager = new UserInputManager();
+        InputManager inputManager = new UserInputManager(new Scanner(System.in));
 
         // When
         // Then
@@ -48,7 +51,7 @@ public class InputTest {
         // Given
         ByteArrayInputStream in = new ByteArrayInputStream("1000a".getBytes());
         System.setIn(in);
-        InputManager inputManager = new UserInputManager();
+        InputManager inputManager = new UserInputManager(new Scanner(System.in));
 
         // When
         // Then
