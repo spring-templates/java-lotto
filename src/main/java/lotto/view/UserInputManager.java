@@ -1,6 +1,5 @@
 package lotto.view;
 
-import java.io.IOException;
 import java.util.*;
 
 public class UserInputManager implements InputManager {
