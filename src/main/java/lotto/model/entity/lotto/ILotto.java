@@ -1,7 +1,7 @@
 package lotto.model.entity.lotto;
 
-import java.util.SortedSet;
 import base.InternalSchema;
+import java.util.SortedSet;
 
 /**
  * Lotto Entity를 정의하는 Schema

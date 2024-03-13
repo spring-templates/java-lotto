@@ -1,7 +1,9 @@
 package lotto;
 
 import java.util.List;
-import lotto.model.entity.lotto.*;
+import lotto.model.entity.lotto.ILottoInputDto;
+import lotto.model.entity.lotto.ILottoOutputDto;
+import lotto.model.entity.lotto.LottoGenerator;
 
 public class Application {
     public static void main(String[] args) {

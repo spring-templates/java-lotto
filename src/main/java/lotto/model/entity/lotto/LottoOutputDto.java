@@ -10,4 +10,3 @@ public record LottoOutputDto(
         return numbers.toString();
     }
 }
-
