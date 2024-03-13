@@ -1,8 +1,8 @@
 package lotto.model.entity.lotto;
 
+import base.Entity;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import base.Entity;
 
 final class LottoEntity extends Entity<ILottoInputDto, ILottoOutputDto> implements ILotto {
     private final ILotto lotto;
@@ -14,16 +14,8 @@ final class LottoEntity extends Entity<ILottoInputDto, ILottoOutputDto> implemen
     }
 
     @Override
-    protected void validate(ILottoInputDto iLottoInputDto) throws IllegalArgumentException {
-        if (iLottoInputDto == null) {
-            throw new IllegalArgumentException("[ERROR] 로또 번호가 입력되지 않았습니다.");
-        }
-        if (iLottoInputDto.numbers().isEmpty()) {
-            throw new IllegalArgumentException("[ERROR] 로또 번호가 입력되지 않았습니다.");
-        }
-        if (iLottoInputDto.numbers().size() != 6) {
-            throw new IllegalArgumentException("[ERROR] 로또 번호는 6개여야 합니다.");
-        }
+    protected void validate(ILottoInputDto input) throws IllegalArgumentException {
+        new LottoValidator().validate(input);
     }
 
     @Override
@@ -39,4 +31,3 @@ final class LottoEntity extends Entity<ILottoInputDto, ILottoOutputDto> implemen
     private record Lotto(SortedSet<Integer> numbers) implements ILotto {
     }
 }
-
