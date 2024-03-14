@@ -1,5 +1,6 @@
 package lotto.model.entity.lotto.bonus;
 
+import base.Entity;
 import base.Generator;
 
 public class BonusGenerator extends Generator<IBonusInputDto, BonusOutputDto> {
@@ -10,7 +11,7 @@ public class BonusGenerator extends Generator<IBonusInputDto, BonusOutputDto> {
     }
 
     @Override
-    protected final BonusEntity getEntity(IBonusInputDto input) {
+    protected final Entity<IBonusInputDto, BonusOutputDto> getEntity(IBonusInputDto input) {
         return new BonusEntity(input);
     }
 }

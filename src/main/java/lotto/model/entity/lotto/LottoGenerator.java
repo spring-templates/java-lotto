@@ -1,5 +1,6 @@
 package lotto.model.entity.lotto;
 
+import base.Entity;
 import base.Generator;
 
 public class LottoGenerator extends Generator<ILottoInputDto, LottoOutputDto> {
@@ -10,7 +11,7 @@ public class LottoGenerator extends Generator<ILottoInputDto, LottoOutputDto> {
     }
 
     @Override
-    protected final LottoEntity getEntity(ILottoInputDto input) {
+    protected final Entity<ILottoInputDto, LottoOutputDto> getEntity(ILottoInputDto input) {
         return new LottoEntity(input);
     }
 }
