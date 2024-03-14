@@ -8,8 +8,8 @@ import lotto.model.entity.lotto.LottoGenerator;
 public class Application {
     public static void main(String[] args) {
         LottoGenerator lottoGenerator = new LottoGenerator();
-        LottoInputDto lottoInput = new LottoInputDto(List.of(1, 2, 3, 4, 5, 6));
-        ILottoOutputDto lottoOutput = lottoGenerator.generate(lottoInput);
+        LottoInputDto input = new LottoInputDto(List.of(1, 2, 3, 4, 5, 6));
+        ILottoOutputDto lottoOutput = lottoGenerator.generate(input);
         System.out.println(lottoOutput.numbers());
     }
 

@@ -1,18 +1,16 @@
 package lotto.model.entity.lotto;
 
-import base.Entity;
 import base.Generator;
 
-public class LottoGenerator extends Generator<ILottoInputDto, ILottoOutputDto> {
+public class LottoGenerator extends Generator<ILottoInputDto, LottoOutputDto> {
+
     @Override
-    public ILottoOutputDto generate(ILottoInputDto iLottoInput) throws IllegalArgumentException {
-        LottoEntity entity = new LottoEntity(iLottoInput);
-        return entity.toDto();
+    public LottoOutputDto generate(ILottoInputDto input) throws IllegalArgumentException {
+        return getEntity(input).toDto();
     }
 
     @Override
-    protected Entity<ILottoInputDto, ILottoOutputDto> getEntity(ILottoInputDto iLottoInputDto) {
-        return null;
+    protected LottoEntity getEntity(ILottoInputDto input) {
+        return new LottoEntity(input);
     }
-
 }

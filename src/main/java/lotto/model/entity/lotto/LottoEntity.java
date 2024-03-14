@@ -4,22 +4,18 @@ import base.Entity;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-final class LottoEntity extends Entity<ILottoInputDto, ILottoOutputDto> implements ILotto {
-    private final ILotto lotto;
+final class LottoEntity extends Entity<ILottoInputDto, LottoOutputDto> implements ILottoOutputDto {
+    private final Lotto lotto;
 
     public LottoEntity(ILottoInputDto input) throws IllegalArgumentException {
-        super(input);
+        super(input, new LottoValidator());
         SortedSet<Integer> numbers = new TreeSet<>(input.numbers());
         this.lotto = new Lotto(numbers);
+        validate(toDto());
     }
 
     @Override
-    protected void validate(ILottoInputDto input) throws IllegalArgumentException {
-        new LottoValidator().validate(input);
-    }
-
-    @Override
-    public ILottoOutputDto toDto() {
+    protected LottoOutputDto toDto() {
         return new LottoOutputDto(lotto.numbers());
     }
 
@@ -28,6 +24,6 @@ final class LottoEntity extends Entity<ILottoInputDto, ILottoOutputDto> implemen
         return lotto.numbers();
     }
 
-    private record Lotto(SortedSet<Integer> numbers) implements ILotto {
+    private record Lotto(SortedSet<Integer> numbers) implements ILottoOutputDto {
     }
 }
