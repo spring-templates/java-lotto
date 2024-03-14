@@ -22,25 +22,39 @@ public class NumberValidationTest {
 
     @BeforeEach
     void setUp() {
-        while (mayDuplicatedInput.size() < 6) {
+        while (mayDuplicatedInput.size() < 5) {
             mayDuplicatedInput.add(random.nextInt(1, 45));
         }
-        while (mustNotDuplicatedInput.size() < 6) {
+        while (mustNotDuplicatedInput.size() < 5) {
             mustNotDuplicatedInput.add(random.nextInt(1, 45));
         }
     }
 
+    @DisplayName("valid size")
+    @ParameterizedTest
+    @ValueSource(ints = {5, 7})
+    void invalidSize(int size) {
+        // given
+        while (mustNotDuplicatedInput.size() < size) {
+            mustNotDuplicatedInput.add(random.nextInt(1, 45));
+        }
+        List<Integer> input = mustNotDuplicatedInput.stream().toList();
+        // when
+        Executable lambda = () -> generator.generate(new LottoInputDto(input));
+        // then
+        Assertions.assertThrows(IllegalArgumentException.class, lambda, "input.size() != 6");
+    }
+
     @DisplayName("duplicated input")
     @Test
-    void noDuplication() {
+    void duplication() {
         // given
-        mayDuplicatedInput.remove(5);
         int duplicatedNumber = mayDuplicatedInput.get(0);
         mayDuplicatedInput.add(duplicatedNumber);
         // when
         Executable lambda = () -> generator.generate(new LottoInputDto(mayDuplicatedInput));
         // then
-        Assertions.assertThrows(IllegalArgumentException.class, lambda);
+        Assertions.assertThrows(IllegalArgumentException.class, lambda, "input.contains(duplicatedNumber)");
     }
 
     @DisplayName("edge case")
@@ -48,13 +62,12 @@ public class NumberValidationTest {
     @ValueSource(ints = {-1, 0, 46})
     void outOfRange(int number) {
         // given
-        mustNotDuplicatedInput.remove(5);
         mustNotDuplicatedInput.add(number);
         List<Integer> input = mustNotDuplicatedInput.stream().toList();
         // when
         Executable lambda = () -> generator.generate(new LottoInputDto(input));
         // then
-        Assertions.assertThrows(IllegalArgumentException.class, lambda);
+        Assertions.assertThrows(IllegalArgumentException.class, lambda, "number < 1 || number > 45");
     }
 
 }
