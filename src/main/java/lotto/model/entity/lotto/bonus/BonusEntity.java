@@ -1,6 +1,6 @@
 package lotto.model.entity.lotto.bonus;
 
-import base.Entity;
+import base.model.Entity;
 import lotto.model.entity.lotto.ILottoOutputDto;
 
 final class BonusEntity extends Entity<IBonusInputDto, BonusOutputDto> implements IBonusOutputDto {

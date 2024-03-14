@@ -1,6 +1,6 @@
 package lotto.model.entity.lotto.prize;
 
-import base.Entity;
+import base.model.Entity;
 import lotto.model.entity.money.IMoneyOutputDto;
 import lotto.model.entity.money.MoneyGenerator;
 import lotto.model.entity.money.MoneyInputDto;

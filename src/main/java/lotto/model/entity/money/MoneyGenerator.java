@@ -1,7 +1,7 @@
 package lotto.model.entity.money;
 
-import base.Entity;
-import base.Generator;
+import base.model.Entity;
+import base.model.Generator;
 
 public class MoneyGenerator extends Generator<IMoneyInputDto, MoneyOutputDto> {
 

@@ -1,6 +1,6 @@
 package lotto.model.entity.money;
 
-import base.Entity;
+import base.model.Entity;
 
 final class MoneyEntity extends Entity<IMoneyInputDto, MoneyOutputDto> implements IMoneyOutputDto {
     private final Money money;

@@ -1,6 +1,6 @@
 package lotto.model.entity.lotto;
 
-import base.Entity;
+import base.model.Entity;
 import java.util.SortedSet;
 import java.util.TreeSet;
 

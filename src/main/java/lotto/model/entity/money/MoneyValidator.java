@@ -1,6 +1,6 @@
 package lotto.model.entity.money;
 
-import base.Validator;
+import base.model.Validator;
 
 class MoneyValidator extends Validator<IMoneyInputDto, MoneyOutputDto> {
 

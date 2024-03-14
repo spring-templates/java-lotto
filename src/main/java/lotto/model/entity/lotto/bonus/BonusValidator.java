@@ -1,7 +1,7 @@
 package lotto.model.entity.lotto.bonus;
 
 
-import base.Validator;
+import base.model.Validator;
 
 class BonusValidator extends Validator<IBonusInputDto, BonusOutputDto> {
 

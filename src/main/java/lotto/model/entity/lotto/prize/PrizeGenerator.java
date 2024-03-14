@@ -1,7 +1,7 @@
 package lotto.model.entity.lotto.prize;
 
-import base.Entity;
-import base.Generator;
+import base.model.Entity;
+import base.model.Generator;
 
 public class PrizeGenerator extends Generator<IPrizeInputDto, PrizeOutputDto> {
 

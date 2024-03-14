@@ -1,7 +1,7 @@
 package lotto.model.entity.lotto;
 
 
-import base.Validator;
+import base.model.Validator;
 import java.util.SortedSet;
 
 class LottoValidator extends Validator<ILottoInputDto, LottoOutputDto> {
