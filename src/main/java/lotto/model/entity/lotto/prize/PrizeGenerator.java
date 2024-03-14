@@ -1,5 +1,6 @@
 package lotto.model.entity.lotto.prize;
 
+import base.Entity;
 import base.Generator;
 
 public class PrizeGenerator extends Generator<IPrizeInputDto, PrizeOutputDto> {
@@ -10,7 +11,7 @@ public class PrizeGenerator extends Generator<IPrizeInputDto, PrizeOutputDto> {
     }
 
     @Override
-    protected final PrizeEntity getEntity(IPrizeInputDto input) {
+    protected final Entity<IPrizeInputDto, PrizeOutputDto> getEntity(IPrizeInputDto input) {
         return new PrizeEntity(input);
     }
 }

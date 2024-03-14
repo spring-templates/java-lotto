@@ -10,7 +10,6 @@ import lotto.model.entity.lotto.ILottoOutputDto;
 import lotto.model.entity.lotto.LottoOutputDto;
 import lotto.model.entity.lotto.WinningLottoOutputDto;
 import lotto.model.entity.lotto.bonus.BonusOutputDto;
-import org.apache.logging.log4j.util.BiConsumer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
