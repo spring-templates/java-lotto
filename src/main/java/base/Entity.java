@@ -1,17 +1,12 @@
 package base;
 
 public abstract class Entity<IN extends InputSchema, OUT extends OutputSchema> {
+    protected final Validator<IN, OUT> validator;
 
-    protected Validator<IN, OUT> validator;
-    protected Entity(IN in, Validator<IN, OUT> validator) {
+    protected Entity(IN in, Validator<IN, OUT> validator) throws IllegalArgumentException {
         this.validator = validator;
-        this.validator.validate(in);
+        validator.validate(in);
     }
-
-    protected void validate(OUT out) throws IllegalArgumentException {
-        this.validator.validate(out);
-    }
-
 
     protected abstract OUT toDto();
 }

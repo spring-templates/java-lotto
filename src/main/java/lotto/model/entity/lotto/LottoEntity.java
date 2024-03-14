@@ -11,7 +11,7 @@ final class LottoEntity extends Entity<ILottoInputDto, LottoOutputDto> implement
         super(input, new LottoValidator());
         SortedSet<Integer> numbers = new TreeSet<>(input.numbers());
         this.lotto = new Lotto(numbers);
-        validate(toDto());
+        validator.validate(toDto());
     }
 
     @Override
