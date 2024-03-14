@@ -1,5 +1,6 @@
 package lotto.model.entity.money;
 
+import base.Entity;
 import base.Generator;
 
 public class MoneyGenerator extends Generator<IMoneyInputDto, MoneyOutputDto> {
@@ -10,7 +11,7 @@ public class MoneyGenerator extends Generator<IMoneyInputDto, MoneyOutputDto> {
     }
 
     @Override
-    protected final MoneyEntity getEntity(IMoneyInputDto input) {
+    protected final Entity<IMoneyInputDto, MoneyOutputDto> getEntity(IMoneyInputDto input) {
         return new MoneyEntity(input);
     }
 }
