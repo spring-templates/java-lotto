@@ -1,4 +1,7 @@
-package base;
+package base.model;
+
+import base.InputSchema;
+import base.OutputSchema;
 
 public abstract class Entity<IN extends InputSchema, OUT extends OutputSchema> {
     protected final Validator<IN, OUT> validator;
