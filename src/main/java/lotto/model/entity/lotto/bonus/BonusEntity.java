@@ -1,14 +1,14 @@
 package lotto.model.entity.lotto.bonus;
 
 import base.Entity;
-import java.util.SortedSet;
+import lotto.model.entity.lotto.ILottoOutputDto;
 
 final class BonusEntity extends Entity<IBonusInputDto, BonusOutputDto> implements IBonusOutputDto {
     private final Bonus lotto;
 
     public BonusEntity(IBonusInputDto input) throws IllegalArgumentException {
         super(input, new BonusValidator());
-        this.lotto = new Bonus(input.numbers(), input.bonusNumber());
+        this.lotto = new Bonus(input.lotto(), input.bonusNumber());
         validator.validate(toDto());
     }
 
@@ -22,6 +22,9 @@ final class BonusEntity extends Entity<IBonusInputDto, BonusOutputDto> implement
         return lotto.bonusNumber();
     }
 
-    private record Bonus(SortedSet<Integer> numbers, Integer bonusNumber) implements IBonusInputDto {
+    private record Bonus(
+            ILottoOutputDto lotto,
+            Integer bonusNumber
+    ) implements IBonusInputDto {
     }
 }

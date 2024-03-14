@@ -11,8 +11,8 @@ class BonusValidator extends Validator<IBonusInputDto, BonusOutputDto> {
         if (bonusNumber < 1 || bonusNumber > 45) {
             throw new IllegalArgumentException("bonusNumber < 1 || bonusNumber > 45");
         }
-        if (input.numbers().contains(bonusNumber)) {
-            throw new IllegalArgumentException("input.numbers().contains(bonusNumber)");
+        if (input.lotto().numbers().contains(bonusNumber)) {
+            throw new IllegalArgumentException("input.lotto().numbers().contains(bonusNumber)");
         }
     }
 

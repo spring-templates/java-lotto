@@ -11,7 +11,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 public class BonusValidationTest {
-
     private final BonusGenerator generator = new BonusGenerator();
     private final LottoOutputDto lotto = new LottoOutputDto(new TreeSet<>(List.of(1, 2, 3, 4, 5, 6)));
 
@@ -20,7 +19,7 @@ public class BonusValidationTest {
     @ValueSource(ints = {-1, 0, 46})
     void outOfRange(int number) {
         // given
-        BonusInputDto input = new BonusInputDto(lotto.numbers(), number);
+        BonusInputDto input = new BonusInputDto(lotto, number);
         // when
         Executable lambda = () -> generator.generate(input);
         // then
@@ -32,7 +31,7 @@ public class BonusValidationTest {
     void duplication() {
         // given
         int duplicatedNumber = lotto.numbers().first();
-        BonusInputDto input = new BonusInputDto(lotto.numbers(), duplicatedNumber);
+        BonusInputDto input = new BonusInputDto(lotto, duplicatedNumber);
         // when
         Executable lambda = () -> generator.generate(input);
         // then

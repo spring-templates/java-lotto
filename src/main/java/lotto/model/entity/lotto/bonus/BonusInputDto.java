@@ -1,9 +1,9 @@
 package lotto.model.entity.lotto.bonus;
 
-import java.util.SortedSet;
+import lotto.model.entity.lotto.ILottoOutputDto;
 
 public record BonusInputDto(
-        SortedSet<Integer> numbers,
+        ILottoOutputDto lotto,
         Integer bonusNumber
 ) implements IBonusInputDto {
     @Override
