@@ -8,5 +8,5 @@ public abstract class Entity<IN extends InputSchema, OUT extends OutputSchema> {
         validator.validate(in);
     }
 
-    protected abstract OUT toDto();
+    public abstract OUT toDto();
 }

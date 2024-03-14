@@ -10,7 +10,7 @@ public class BonusGenerator extends Generator<IBonusInputDto, BonusOutputDto> {
     }
 
     @Override
-    protected BonusEntity getEntity(IBonusInputDto input) {
+    protected final BonusEntity getEntity(IBonusInputDto input) {
         return new BonusEntity(input);
     }
 }

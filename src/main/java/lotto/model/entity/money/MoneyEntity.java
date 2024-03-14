@@ -2,8 +2,7 @@ package lotto.model.entity.money;
 
 import base.Entity;
 
-final class MoneyEntity extends Entity<IMoneyInputDto, MoneyOutputDto> implements
-        IMoneyOutputDto {
+final class MoneyEntity extends Entity<IMoneyInputDto, MoneyOutputDto> implements IMoneyOutputDto {
     private final Money money;
 
     public MoneyEntity(IMoneyInputDto input) throws IllegalArgumentException {
@@ -13,7 +12,7 @@ final class MoneyEntity extends Entity<IMoneyInputDto, MoneyOutputDto> implement
     }
 
     @Override
-    protected MoneyOutputDto toDto() {
+    public MoneyOutputDto toDto() {
         return new MoneyOutputDto(money());
     }
 

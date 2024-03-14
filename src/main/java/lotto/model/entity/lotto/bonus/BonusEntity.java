@@ -13,7 +13,7 @@ final class BonusEntity extends Entity<IBonusInputDto, BonusOutputDto> implement
     }
 
     @Override
-    protected BonusOutputDto toDto() {
+    public BonusOutputDto toDto() {
         return new BonusOutputDto(bonusNumber());
     }
 

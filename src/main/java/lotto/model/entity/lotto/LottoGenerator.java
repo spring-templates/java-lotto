@@ -10,7 +10,7 @@ public class LottoGenerator extends Generator<ILottoInputDto, LottoOutputDto> {
     }
 
     @Override
-    protected LottoEntity getEntity(ILottoInputDto input) {
+    protected final LottoEntity getEntity(ILottoInputDto input) {
         return new LottoEntity(input);
     }
 }

@@ -10,7 +10,7 @@ public class MoneyGenerator extends Generator<IMoneyInputDto, MoneyOutputDto> {
     }
 
     @Override
-    protected MoneyEntity getEntity(IMoneyInputDto input) {
+    protected final MoneyEntity getEntity(IMoneyInputDto input) {
         return new MoneyEntity(input);
     }
 }

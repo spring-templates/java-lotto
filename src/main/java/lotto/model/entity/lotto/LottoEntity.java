@@ -15,7 +15,7 @@ final class LottoEntity extends Entity<ILottoInputDto, LottoOutputDto> implement
     }
 
     @Override
-    protected LottoOutputDto toDto() {
+    public LottoOutputDto toDto() {
         return new LottoOutputDto(lotto.numbers());
     }
 
