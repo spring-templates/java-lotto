@@ -9,4 +9,8 @@ public record LottoInputDto(
     public String toString() {
         return numbers.toString();
     }
+
+    public static LottoInputDto of(List<Integer> numbers) {
+        return new LottoInputDto(numbers);
+    }
 }
