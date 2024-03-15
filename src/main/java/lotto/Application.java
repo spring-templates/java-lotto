@@ -18,8 +18,11 @@ import lotto.view.sout.PrizeStatisticsOutputView;
 
 public class Application {
     public static void main(String[] args) {
-        new MoneyInputView();
-        System.out.println(8000);
+        args = args.length < 3 ? new String[]{"8000", "1,2,3,4,5,6", "7"} : args;
+        // System.setIn(new java.io.ByteArrayInputStream(String.join(System.lineSeparator(), args).getBytes());
+
+        new MoneyInputView().header();
+        System.out.println(args[0]);
         System.out.println();
 
         List<List<Integer>> numbers = List.of(
@@ -41,14 +44,13 @@ public class Application {
         view.render(input);
 
         System.out.println();
-
-        new WinningLottoInputView();
-        System.out.println("1,2,3,4,5,6");
+        new WinningLottoInputView().header();
+        System.out.println(args[1]);
         System.out.println();
         WinningLottoOutputDto winningLotto = WinningLottoOutputDto.of(LottoInputDto.of(List.of(1, 2, 3, 4, 5, 6)));
 
-        new WinningBonusInputView();
-        System.out.println(7);
+        new WinningBonusInputView().header();
+        System.out.println(args[2]);
         System.out.println();
         BonusOutputDto bonus = new BonusOutputDto(7);
 
