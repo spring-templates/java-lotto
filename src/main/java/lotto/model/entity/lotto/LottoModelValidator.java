@@ -1,10 +1,10 @@
 package lotto.model.entity.lotto;
 
 
-import base.model.Validator;
+import base.model.ModelValidator;
 import java.util.SortedSet;
 
-class LottoValidator extends Validator<ILottoInputDto, LottoOutputDto> {
+class LottoModelValidator extends ModelValidator<ILottoInputDto, LottoOutputDto> {
 
     @Override
     public void validate(ILottoInputDto input) throws IllegalArgumentException {

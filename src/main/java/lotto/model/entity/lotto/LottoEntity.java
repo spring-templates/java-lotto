@@ -8,10 +8,10 @@ final class LottoEntity extends Entity<ILottoInputDto, LottoOutputDto> implement
     private final Lotto lotto;
 
     public LottoEntity(ILottoInputDto input) throws IllegalArgumentException {
-        super(input, new LottoValidator());
+        super(input, new LottoModelValidator());
         SortedSet<Integer> numbers = new TreeSet<>(input.numbers());
         this.lotto = new Lotto(numbers);
-        validator.validate(toDto());
+        modelValidator.validate(toDto());
     }
 
     @Override

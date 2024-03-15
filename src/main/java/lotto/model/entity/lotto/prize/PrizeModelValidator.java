@@ -1,9 +1,9 @@
 package lotto.model.entity.lotto.prize;
 
 
-import base.model.Validator;
+import base.model.ModelValidator;
 
-class PrizeValidator extends Validator<IPrizeInputDto, PrizeOutputDto> {
+class PrizeModelValidator extends ModelValidator<IPrizeInputDto, PrizeOutputDto> {
 
     @Override
     public void validate(IPrizeInputDto input) throws IllegalArgumentException {

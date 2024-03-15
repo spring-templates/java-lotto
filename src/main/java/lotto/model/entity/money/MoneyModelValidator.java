@@ -1,8 +1,8 @@
 package lotto.model.entity.money;
 
-import base.model.Validator;
+import base.model.ModelValidator;
 
-class MoneyValidator extends Validator<IMoneyInputDto, MoneyOutputDto> {
+class MoneyModelValidator extends ModelValidator<IMoneyInputDto, MoneyOutputDto> {
 
     @Override
     public void validate(IMoneyInputDto input) throws IllegalArgumentException {
