@@ -29,7 +29,7 @@ public class HeaderTest {
         // given
         String expected = "구입금액을 입력해 주세요." + System.lineSeparator();
         // when
-        new MoneyInputView();
+        new MoneyInputView().header();
         // then
         Assertions.assertEquals(expected, actual.toString());
     }
@@ -40,7 +40,7 @@ public class HeaderTest {
         // given
         String expected = "당첨 번호를 입력해 주세요." + System.lineSeparator();
         // when
-        new WinningLottoInputView();
+        new WinningLottoInputView().header();
         // then
         Assertions.assertEquals(expected, actual.toString());
     }
@@ -51,7 +51,7 @@ public class HeaderTest {
         // given
         String expected = "보너스 번호를 입력해 주세요." + System.lineSeparator();
         // when
-        new WinningBonusInputView();
+        new WinningBonusInputView().header();
         // then
         Assertions.assertEquals(expected, actual.toString());
     }
