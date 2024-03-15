@@ -1,9 +1,9 @@
 package lotto.model.entity.lotto.prize;
 
 import base.model.Entity;
-import lotto.model.entity.money.IMoneyOutputDto;
 import lotto.model.entity.money.MoneyGenerator;
 import lotto.model.entity.money.MoneyInputDto;
+import lotto.model.entity.money.MoneyOutputDto;
 
 final class PrizeEntity extends Entity<IPrizeInputDto, PrizeOutputDto> implements
         IPrizeOutputDto {
@@ -19,7 +19,7 @@ final class PrizeEntity extends Entity<IPrizeInputDto, PrizeOutputDto> implement
         Integer countNumberMatched = input.winningLotto().countNumberMatched(input.lotto());
         Boolean isBonusMatched = input.bonusNumber().isBonusMatched(input.lotto());
         PrizeEnum prizeEnum = PrizeEnum.of(countNumberMatched, isBonusMatched);
-        IMoneyOutputDto money = new MoneyGenerator().generate(new MoneyInputDto(prizeEnum.getPrize()));
+        MoneyOutputDto money = new MoneyGenerator().generate(new MoneyInputDto(prizeEnum.getPrize()));
         return new Prize(countNumberMatched, isBonusMatched, money);
     }
 
@@ -39,14 +39,14 @@ final class PrizeEntity extends Entity<IPrizeInputDto, PrizeOutputDto> implement
     }
 
     @Override
-    public IMoneyOutputDto prize() {
+    public MoneyOutputDto prize() {
         return info.prize();
     }
 
     private record Prize(
             Integer matchedNumberCount,
             Boolean isBonusMatched,
-            IMoneyOutputDto prize
+            MoneyOutputDto prize
     ) implements IPrizeOutputDto {
     }
 }

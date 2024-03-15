@@ -9,5 +9,6 @@ public abstract class OutputView<OUT extends Record & OutputSchema> {
 
     public abstract void render(OUT out);
 
-    protected abstract void header();
+    protected void header() {
+    }
 }
