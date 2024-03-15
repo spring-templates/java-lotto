@@ -70,12 +70,12 @@
 
 ### Entity
 
-| 레코드명              | 정의        | 생성 시점                        | 사용처         |
-|-------------------|-----------|------------------------------|-------------|
-| `CustomerSession` | 구매 로또 DTO | `LottoFactory`               | 당첨 통계 생성    |
-| `Money`           | 로또 구입 금액  | `InputView`                  | 로또 구매       |
-| `Lotto`           | 로또 한 장 정보 | `LottoGenerateService`       | 구매 로또 정보    |
-| `Prize`           | 로또별 당첨 정보 | `LottoPrizeCalculateService` | 당첨 통계 생성 |
+|       레코드명        |    정의     |            생성 시점             |   사용처    |
+|:-----------------:|-----------|:----------------------------:|:--------:|
+| `CustomerSession` | 구매 로또 DTO |        `LottoFactory`        | 당첨 통계 생성 |
+|      `Money`      | 로또 구입 금액  |         `InputView`          |  로또 구매   |
+|      `Lotto`      | 로또 한 장 정보 |    `LottoGenerateService`    | 구매 로또 정보 |
+|      `Prize`      | 로또별 당첨 정보 | `LottoPrizeCalculateService` | 당첨 통계 생성 |
 
 #### 상세 정보
 
