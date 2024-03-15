@@ -3,21 +3,15 @@ package lotto.view;
 import base.view.OutputView;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.List;
-import java.util.SortedMap;
-import java.util.TreeMap;
-import java.util.TreeSet;
+import java.util.*;
 import lotto.model.entity.lotto.LottoOutputDto;
 import lotto.model.entity.lotto.LottoPurchaseOutputDto;
 import lotto.model.entity.lotto.prize.PrizeOutputDto;
-import lotto.model.entity.lotto.prize.PrizeStatsOutputDto;
+import lotto.model.entity.lotto.prize.stats.StatsOutputDto;
 import lotto.model.entity.money.MoneyOutputDto;
 import lotto.view.sout.LottoPurchaseOutputView;
 import lotto.view.sout.PrizeStatisticsOutputView;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 public class RenderTest {
 
@@ -66,12 +60,7 @@ public class RenderTest {
     void prizeStatisticsOutput() {
         // given
         SortedMap<PrizeOutputDto, Integer> input = new TreeMap<>();
-        PrizeOutputDto key = createPrizeKey(0, false, 0);
-        input.put(key, input.getOrDefault(key, 0) + 1);
-        key = createPrizeKey(1, false, 0);
-        input.put(key, input.getOrDefault(key, 0) + 2);
-        key = createPrizeKey(2, false, 0);
-        input.put(key, input.getOrDefault(key, 0) + 4);
+        input.put(createPrizeKey(0, false, 0), 7);
         input.put(createPrizeKey(3, false, 5_000), 1);
         input.put(createPrizeKey(4, false, 50_000), 0);
         input.put(createPrizeKey(5, false, 1_500_000), 0);
@@ -87,10 +76,10 @@ public class RenderTest {
                 총 수익률은 62.5%입니다.
                 """;
 
-        OutputView<PrizeStatsOutputDto> view = new PrizeStatisticsOutputView();
+        OutputView<StatsOutputDto> view = new PrizeStatisticsOutputView();
         System.setOut(new PrintStream(actual));
         // when
-        view.render(new PrizeStatsOutputDto(input));
+        view.render(new StatsOutputDto(input));
         // then
         Assertions.assertEquals(expected.replace("\n", lf), actual.toString());
     }
