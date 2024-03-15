@@ -1,18 +1,32 @@
 package lotto.model.entity.lotto.prize;
 
-import lotto.model.entity.money.IMoneyOutputDto;
+import java.text.DecimalFormat;
+import lotto.model.entity.money.MoneyOutputDto;
 
 public record PrizeOutputDto(
         Integer matchedNumberCount,
         Boolean isBonusMatched,
-        IMoneyOutputDto prize
+        MoneyOutputDto prize
 
-) implements IPrizeOutputDto {
+) implements IPrizeOutputDto, Comparable<IPrizeOutputDto> {
+    public static PrizeOutputDto of(PrizeEnum prizeEnum) {
+        return new PrizeOutputDto(
+                prizeEnum.getCountMatched(),
+                prizeEnum.getIsBonusMatched(),
+                new MoneyOutputDto(prizeEnum.getPrize())
+        );
+    }
+
     @Override
     public String toString() {
-        String matchCountMessage = String.format("%d개 일치", matchedNumberCount);
+        String matchCountMessage = "%d개 일치".formatted(matchedNumberCount);
         String bonusMatchMessage = ", 보너스 볼 일치";
-        String prizeMessage = String.format(" (%d원)", prize.money());
+        String prizeMessage = " (%s원)".formatted(new DecimalFormat().format(prize.money()));
         return matchCountMessage + (isBonusMatched ? bonusMatchMessage : "") + prizeMessage;
+    }
+
+    @Override
+    public int compareTo(IPrizeOutputDto obj) {
+        return prize.compareTo(obj.prize());
     }
 }
