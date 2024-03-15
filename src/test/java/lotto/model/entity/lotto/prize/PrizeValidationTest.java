@@ -10,7 +10,7 @@ import lotto.model.entity.lotto.ILottoOutputDto;
 import lotto.model.entity.lotto.LottoOutputDto;
 import lotto.model.entity.lotto.WinningLottoOutputDto;
 import lotto.model.entity.lotto.bonus.BonusOutputDto;
-import org.junit.jupiter.api.Assertions;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -28,17 +28,22 @@ public class PrizeValidationTest {
     @Test
     void prizeEnumTest() {
         // given
-        Map<PrizeEnum, Integer> prizeMap = Map.of(
-                PrizeEnum.NONE, 0,
+        Map<PrizeEnum, Integer> prizeMap = createPrizeMap();
+
+        // then
+        prizeMap.forEach(
+                (prize, expected) -> Assertions.assertThat(expected).isEqualTo(prize.getPrize()));
+    }
+
+    private Map<PrizeEnum, Integer> createPrizeMap() {
+        return Map.of(
+                PrizeEnum.NONE_0, 0,
                 PrizeEnum.FIFTH, 5_000,
                 PrizeEnum.FOURTH, 50_000,
                 PrizeEnum.THIRD, 1_500_000,
                 PrizeEnum.SECOND, 30_000_000,
                 PrizeEnum.FIRST, 2_000_000_000
         );
-
-        // then
-        prizeMap.forEach((prize, expected) -> Assertions.assertEquals(expected, prize.getPrize()));
     }
 
     @DisplayName("checkPrizeByNumberMatched")
@@ -46,24 +51,32 @@ public class PrizeValidationTest {
     @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6})
     void checkPrizeByNumberMatched(int matched) {
         // given
+        ILottoOutputDto lotto = createLotto(matched);
+        Set<Integer> expectedPrizes = createExpectedPrizes(matched);
+
+        // when
+        PrizeOutputDto output = generator.generate(new PrizeInputDto(lotto, winningLotto, bonus));
+        Integer actualPrize = output.prize().money();
+
+        // then
+        Assertions.assertThat(actualPrize).isIn(expectedPrizes);
+    }
+
+    private ILottoOutputDto createLotto(int matched) {
         List<Integer> matchedNumbers = matched == 0 ? List.of() : winningNumbers.subList(0, matched);
         List<Integer> unmatchedNumbers =
                 matched == 6 ? List.of() : winningNumbers.subList(matched, 6).stream().map(n -> 45 - n).toList();
         SortedSet<Integer> combined = new TreeSet<>(matchedNumbers);
         combined.addAll(unmatchedNumbers);
-        ILottoOutputDto lotto = new LottoOutputDto(combined);
+        return new LottoOutputDto(combined);
+    }
 
+    private Set<Integer> createExpectedPrizes(int matched) {
         int prize = PrizeEnum.of(matched, false).getPrize();
-        Set<Integer> expected = new HashSet<>(List.of(prize));
+        Set<Integer> expectedPrizes = new HashSet<>(List.of(prize));
         if (matched == 5) {
-            expected.add(PrizeEnum.of(matched, true).getPrize());
+            expectedPrizes.add(PrizeEnum.of(matched, true).getPrize());
         }
-
-        // when
-        PrizeOutputDto output = generator.generate(new PrizeInputDto(lotto, winningLotto, bonus));
-        Integer actual = output.prize().money();
-
-        // then
-        Assertions.assertTrue(expected.contains(actual));
+        return expectedPrizes;
     }
 }

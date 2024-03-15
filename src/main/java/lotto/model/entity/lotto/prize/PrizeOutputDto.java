@@ -17,6 +17,10 @@ public record PrizeOutputDto(
         );
     }
 
+    public static PrizeOutputDto of(PrizeInputDto input) {
+        return new PrizeGenerator().generate(input);
+    }
+
     @Override
     public String toString() {
         String matchCountMessage = "%d개 일치".formatted(matchedNumberCount);
