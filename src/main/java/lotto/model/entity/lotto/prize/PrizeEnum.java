@@ -1,6 +1,6 @@
 package lotto.model.entity.lotto.prize;
 
-enum PrizeEnum {
+public enum PrizeEnum {
     NONE(0, Boolean.ANY, 0),
     FIFTH(3, Boolean.ANY, 5_000),
     FOURTH(4, Boolean.ANY, 50_000),
@@ -29,6 +29,14 @@ enum PrizeEnum {
             }
         }
         return NONE;
+    }
+
+    int getCountMatched() {
+        return countMatched;
+    }
+
+    boolean getIsBonusMatched() {
+        return isBonusMatched.equals(Boolean.TRUE);
     }
 
     int getPrize() {
