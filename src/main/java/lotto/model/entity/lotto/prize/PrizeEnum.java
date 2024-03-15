@@ -1,7 +1,7 @@
 package lotto.model.entity.lotto.prize;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 public enum PrizeEnum {
     NONE_0(0, Boolean.ANY, 0),
@@ -13,10 +13,6 @@ public enum PrizeEnum {
     SECOND(5, Boolean.TRUE, 30_000_000),
     FIRST(6, Boolean.ANY, 2_000_000_000);
 
-    private final int countMatched;
-    private final Boolean isBonusMatched;
-    private final int prize;
-
     private static final Map<Map.Entry<Integer, Boolean>, PrizeEnum> lookup = new HashMap<>();
 
     static {
@@ -25,6 +21,10 @@ public enum PrizeEnum {
         }
     }
 
+    private final int countMatched;
+    private final Boolean isBonusMatched;
+    private final int prize;
+
     PrizeEnum(int countMatched, Boolean isBonusMatched, int prize) {
         this.countMatched = countMatched;
         this.isBonusMatched = isBonusMatched;
@@ -32,7 +32,8 @@ public enum PrizeEnum {
     }
 
     public static PrizeEnum of(int matchCount, boolean matchBonus) {
-        return lookup.getOrDefault(Map.entry(matchCount, matchBonus), NONE_0);
+        return lookup.getOrDefault(Map.entry(matchCount, Boolean.of(matchBonus)),
+                lookup.get(Map.entry(matchCount, Boolean.ANY)));
     }
 
     int getCountMatched() {
@@ -50,6 +51,10 @@ public enum PrizeEnum {
     private enum Boolean {
         TRUE,
         FALSE,
-        ANY
+        ANY;
+
+        public static Boolean of(boolean value) {
+            return value ? TRUE : FALSE;
+        }
     }
 }

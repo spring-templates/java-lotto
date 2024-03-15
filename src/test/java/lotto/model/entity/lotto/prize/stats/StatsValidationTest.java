@@ -14,12 +14,14 @@ public class StatsValidationTest {
     void calculateProfitRate() {
         // given
         List<PrizeOutputDto> prizes = List.of(
-            PrizeOutputDto.of(PrizeEnum.FIRST),
-            PrizeOutputDto.of(PrizeEnum.SECOND),
-            PrizeOutputDto.of(PrizeEnum.THIRD),
-            PrizeOutputDto.of(PrizeEnum.FOURTH),
-            PrizeOutputDto.of(PrizeEnum.FIFTH),
-            PrizeOutputDto.of(PrizeEnum.NONE_0)
+                PrizeOutputDto.of(PrizeEnum.NONE_0),
+                PrizeOutputDto.of(PrizeEnum.NONE_1),
+                PrizeOutputDto.of(PrizeEnum.NONE_0),
+                PrizeOutputDto.of(PrizeEnum.NONE_2),
+                PrizeOutputDto.of(PrizeEnum.NONE_0),
+                PrizeOutputDto.of(PrizeEnum.NONE_1),
+                PrizeOutputDto.of(PrizeEnum.FIFTH),
+                PrizeOutputDto.of(PrizeEnum.NONE_0)
         );
         double expected = calculateProfitRate(prizes);
 
@@ -27,7 +29,9 @@ public class StatsValidationTest {
         double actual = StatsOutputDto.of(StatsInputDto.of(prizes)).profitRate();
 
         // then
-        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(5000. / 8000. * 100. , expected);
+        Assertions.assertEquals(expected , actual);
+
     }
 
     private double calculateProfitRate(List<PrizeOutputDto> prizes) {
