@@ -3,6 +3,11 @@ package lotto.model.entity.lotto;
 import java.util.SortedSet;
 
 public record WinningLottoOutputDto(SortedSet<Integer> numbers) implements ILottoOutputDto {
+    public static WinningLottoOutputDto of(ILottoInputDto input) {
+        LottoOutputDto a = new LottoGenerator().generate(input);
+        return new WinningLottoOutputDto(a.numbers());
+    }
+
     @Override
     public String toString() {
         return numbers.toString();

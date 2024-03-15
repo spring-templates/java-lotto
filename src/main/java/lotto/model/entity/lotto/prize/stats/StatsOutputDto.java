@@ -7,6 +7,10 @@ import lotto.model.entity.lotto.prize.PrizeOutputDto;
 public record StatsOutputDto(
         SortedMap<PrizeOutputDto, Integer> prizeStats
 ) implements IStatsOutputDto {
+    public static StatsOutputDto of(IStatsInputDto input) {
+        return new StatsGenerator().generate(input);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
