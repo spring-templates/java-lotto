@@ -10,9 +10,9 @@ final class PrizeEntity extends Entity<IPrizeInputDto, PrizeOutputDto> implement
     private final Prize info;
 
     public PrizeEntity(IPrizeInputDto input) throws IllegalArgumentException {
-        super(input, new PrizeValidator());
+        super(input, new PrizeModelValidator());
         this.info = prizeFactory(input);
-        validator.validate(toDto());
+        modelValidator.validate(toDto());
     }
 
     private Prize prizeFactory(IPrizeInputDto input) {

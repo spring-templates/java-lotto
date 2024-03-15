@@ -1,9 +1,9 @@
 package lotto.model.entity.lotto.prize.stats;
 
 
-import base.model.Validator;
+import base.model.ModelValidator;
 
-class StatsValidator extends Validator<IStatsInputDto, StatsOutputDto> {
+class StatsModelValidator extends ModelValidator<IStatsInputDto, StatsOutputDto> {
 
     @Override
     public void validate(IStatsInputDto input) throws IllegalArgumentException {

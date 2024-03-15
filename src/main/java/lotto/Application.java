@@ -1,17 +1,26 @@
 package lotto;
 
-import java.util.*;
-import lotto.model.entity.lotto.*;
+import java.util.List;
+import lotto.model.entity.lotto.LottoInputDto;
+import lotto.model.entity.lotto.LottoOutputDto;
+import lotto.model.entity.lotto.LottoPurchaseOutputDto;
+import lotto.model.entity.lotto.WinningLottoOutputDto;
 import lotto.model.entity.lotto.bonus.BonusOutputDto;
-import lotto.model.entity.lotto.prize.*;
-import lotto.model.entity.lotto.prize.stats.*;
-import lotto.view.sin.*;
-import lotto.view.sout.*;
+import lotto.model.entity.lotto.prize.PrizeInputDto;
+import lotto.model.entity.lotto.prize.PrizeOutputDto;
+import lotto.model.entity.lotto.prize.stats.StatsInputDto;
+import lotto.model.entity.lotto.prize.stats.StatsOutputDto;
+import lotto.view.sin.MoneyInputView;
+import lotto.view.sin.WinningBonusInputView;
+import lotto.view.sin.WinningLottoInputView;
+import lotto.view.sout.LottoPurchaseOutputView;
+import lotto.view.sout.PrizeStatisticsOutputView;
 
 public class Application {
     public static void main(String[] args) {
         new MoneyInputView();
         System.out.println(8000);
+        System.out.println();
 
         List<List<Integer>> numbers = List.of(
                 List.of(8, 21, 23, 41, 42, 43),
@@ -31,12 +40,16 @@ public class Application {
         var view = new LottoPurchaseOutputView();
         view.render(input);
 
+        System.out.println();
+
         new WinningLottoInputView();
         System.out.println("1,2,3,4,5,6");
-        WinningLottoOutputDto winningLotto = WinningLottoOutputDto.of(LottoInputDto.of(List.of(1,2,3,4,5,6)));
+        System.out.println();
+        WinningLottoOutputDto winningLotto = WinningLottoOutputDto.of(LottoInputDto.of(List.of(1, 2, 3, 4, 5, 6)));
 
         new WinningBonusInputView();
         System.out.println(7);
+        System.out.println();
         BonusOutputDto bonus = new BonusOutputDto(7);
 
         var prizeStatisticsOutputView = new PrizeStatisticsOutputView();

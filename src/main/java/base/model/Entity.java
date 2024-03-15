@@ -4,11 +4,11 @@ import base.InputSchema;
 import base.OutputSchema;
 
 public abstract class Entity<IN extends InputSchema, OUT extends OutputSchema> {
-    protected final Validator<IN, OUT> validator;
+    protected final ModelValidator<IN, OUT> modelValidator;
 
-    protected Entity(IN in, Validator<IN, OUT> validator) throws IllegalArgumentException {
-        this.validator = validator;
-        validator.validate(in);
+    protected Entity(IN in, ModelValidator<IN, OUT> modelValidator) throws IllegalArgumentException {
+        this.modelValidator = modelValidator;
+        modelValidator.validate(in);
     }
 
     public abstract OUT toDto();
