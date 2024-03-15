@@ -7,9 +7,9 @@ final class BonusEntity extends Entity<IBonusInputDto, BonusOutputDto> implement
     private final Bonus lotto;
 
     public BonusEntity(IBonusInputDto input) throws IllegalArgumentException {
-        super(input, new BonusValidator());
+        super(input, new BonusModelValidator());
         this.lotto = new Bonus(input.lotto(), input.bonusNumber());
-        validator.validate(toDto());
+        modelValidator.validate(toDto());
     }
 
     @Override

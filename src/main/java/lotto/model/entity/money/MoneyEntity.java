@@ -6,9 +6,9 @@ final class MoneyEntity extends Entity<IMoneyInputDto, MoneyOutputDto> implement
     private final Money money;
 
     public MoneyEntity(IMoneyInputDto input) throws IllegalArgumentException {
-        super(input, new MoneyValidator());
+        super(input, new MoneyModelValidator());
         this.money = new Money(input.money());
-        validator.validate(toDto());
+        modelValidator.validate(toDto());
     }
 
     @Override

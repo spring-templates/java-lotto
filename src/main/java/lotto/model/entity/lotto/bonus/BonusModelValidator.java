@@ -1,9 +1,9 @@
 package lotto.model.entity.lotto.bonus;
 
 
-import base.model.Validator;
+import base.model.ModelValidator;
 
-class BonusValidator extends Validator<IBonusInputDto, BonusOutputDto> {
+class BonusModelValidator extends ModelValidator<IBonusInputDto, BonusOutputDto> {
 
     @Override
     public void validate(IBonusInputDto input) throws IllegalArgumentException {

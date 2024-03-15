@@ -11,9 +11,9 @@ final class StatsEntity extends Entity<IStatsInputDto, StatsOutputDto> implement
     private final Stats stats;
 
     public StatsEntity(IStatsInputDto input) throws IllegalArgumentException {
-        super(input, new StatsValidator());
+        super(input, new StatsModelValidator());
         this.stats = statsFactory(input);
-        validator.validate(toDto());
+        modelValidator.validate(toDto());
     }
 
     private Stats statsFactory(IStatsInputDto input) {
