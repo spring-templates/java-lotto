@@ -1,6 +1,5 @@
 package lotto.model.entity.lotto.prize.stats;
 
-import java.util.Map.Entry;
 import java.util.SortedMap;
 import lotto.model.entity.lotto.prize.PrizeOutputDto;
 
@@ -26,12 +25,12 @@ public record StatsOutputDto(
     }
 
     public double profitRate() {
-        double netProfit = 0;
+        double profit = 0;
         double cost = 0;
-        for (Entry<PrizeOutputDto, Integer> entry : prizeStats.entrySet()) {
-            netProfit += entry.getKey().prize().money() * entry.getValue();
+        for (var entry : prizeStats.entrySet()) {
+            profit += entry.getKey().prize().money() * entry.getValue();
             cost += entry.getValue() * 1000L;
         }
-        return netProfit / cost * 100;
+        return profit / cost * 100;
     }
 }
