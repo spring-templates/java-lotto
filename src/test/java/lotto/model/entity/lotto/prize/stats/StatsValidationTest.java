@@ -29,8 +29,8 @@ public class StatsValidationTest {
         double actual = StatsOutputDto.of(StatsInputDto.of(prizes)).profitRate();
 
         // then
-        Assertions.assertEquals(5000. / 8000. * 100. , expected);
-        Assertions.assertEquals(expected , actual);
+        Assertions.assertEquals(5000. / 8000. * 100., expected);
+        Assertions.assertEquals(expected, actual);
 
     }
 
