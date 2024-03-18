@@ -1,7 +1,6 @@
 package lotto.controller;
 
 import java.io.ByteArrayInputStream;
-import lotto.controller.money.MoneyConsoleInput;
 import lotto.model.money.MoneyInputValidator;
 import lotto.view.sin.MoneyInputView;
 import org.junit.jupiter.api.Assertions;
