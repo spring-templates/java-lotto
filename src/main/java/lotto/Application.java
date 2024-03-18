@@ -1,67 +1,59 @@
 package lotto;
 
-import java.util.List;
-import lotto.model.entity.lotto.LottoInputDto;
-import lotto.model.entity.lotto.LottoOutputDto;
-import lotto.model.entity.lotto.LottoPurchaseOutputDto;
-import lotto.model.entity.lotto.WinningLottoOutputDto;
-import lotto.model.entity.lotto.bonus.BonusOutputDto;
-import lotto.model.entity.lotto.prize.PrizeInputDto;
-import lotto.model.entity.lotto.prize.PrizeOutputDto;
-import lotto.model.entity.lotto.prize.stats.StatsInputDto;
-import lotto.model.entity.lotto.prize.stats.StatsOutputDto;
+import java.io.ByteArrayInputStream;
+import java.util.Arrays;
+import lotto.controller.MoneyConsoleInput;
+import lotto.controller.MoneyToPurchaseLotto;
+import lotto.controller.PurchaseLottoToPrize;
+import lotto.controller.WinningBonusConsoleInput;
+import lotto.controller.WinningLottoConsoleInput;
+import lotto.model.bonus.BonusInputValidator;
+import lotto.model.bonus.BonusOutputDto;
+import lotto.model.lotto.winning.IWinningLottoInput;
+import lotto.model.lotto.winning.WinningLottoInputValidator;
+import lotto.model.lotto.winning.WinningLottoOutputDto;
+import lotto.model.money.LottoCostInputValidator;
+import lotto.view.sin.BonusInputView;
 import lotto.view.sin.MoneyInputView;
-import lotto.view.sin.WinningBonusInputView;
 import lotto.view.sin.WinningLottoInputView;
 import lotto.view.sout.LottoPurchaseOutputView;
 import lotto.view.sout.PrizeStatisticsOutputView;
 
 public class Application {
+
+    private static void lineFeed() {
+        System.out.println();
+    }
+
     public static void main(String[] args) {
-        args = args.length < 3 ? new String[]{"8000", "1,2,3,4,5,6", "7"} : args;
-        // System.setIn(new java.io.ByteArrayInputStream(String.join(System.lineSeparator(), args).getBytes());
-
-        new MoneyInputView().header();
-        System.out.println(args[0]);
-        System.out.println();
-
-        List<List<Integer>> numbers = List.of(
-                List.of(8, 21, 23, 41, 42, 43),
-                List.of(3, 5, 11, 16, 32, 38),
-                List.of(7, 11, 16, 35, 36, 44),
-                List.of(1, 8, 11, 31, 41, 42),
-                List.of(13, 14, 16, 38, 42, 45),
-                List.of(7, 11, 30, 40, 42, 43),
-                List.of(2, 13, 22, 32, 38, 45),
-                List.of(1, 3, 5, 14, 22, 45));
-        List<LottoOutputDto> purchaseLotto = numbers.stream()
-                .map(LottoInputDto::of)
-                .map(LottoOutputDto::of)
-                .toList();
-
-        LottoPurchaseOutputDto input = new LottoPurchaseOutputDto(purchaseLotto);
-        var view = new LottoPurchaseOutputView();
-        view.render(input);
-
-        System.out.println();
-        new WinningLottoInputView().header();
-        System.out.println(args[1]);
-        System.out.println();
-        WinningLottoOutputDto winningLotto = WinningLottoOutputDto.of(LottoInputDto.of(List.of(1, 2, 3, 4, 5, 6)));
-
-        new WinningBonusInputView().header();
-        System.out.println(args[2]);
-        System.out.println();
-        BonusOutputDto bonus = new BonusOutputDto(7);
-
-        var prizeStatisticsOutputView = new PrizeStatisticsOutputView();
-        List<PrizeOutputDto> prizes = purchaseLotto
-                .stream()
-                .map(lotto -> new PrizeInputDto(lotto, winningLotto, bonus))
-                .map(PrizeOutputDto::of)
-                .toList();
-
-        StatsOutputDto stats = StatsOutputDto.of(StatsInputDto.of(prizes));
-        prizeStatisticsOutputView.render(stats);
+        boolean isTest = args.length == 3;
+        if (isTest) {
+            var arguments = Arrays.asList(args);
+            String input = String.join(System.lineSeparator(), arguments);
+            System.setIn(new ByteArrayInputStream(input.getBytes()));
+        }
+        lineFeed();
+        // 구입 금액 입력
+        var money = new MoneyConsoleInput(new MoneyInputView(), new LottoCostInputValidator()).getInput();
+        if (isTest) {
+            System.out.println(args[0]);
+        }
+        // 로또 구매
+        var purchasedLotto = new MoneyToPurchaseLotto(new LottoPurchaseOutputView()).tryConvert(money);
+        // 당첨 로또 번호 입력
+        IWinningLottoInput winningLotto = new WinningLottoConsoleInput(new WinningLottoInputView(),
+                new WinningLottoInputValidator()).getInput();
+        if (isTest) {
+            System.out.println(args[1]);
+        }
+        // 보너스 번호 입력
+        var bonusNumber = new WinningBonusConsoleInput(new BonusInputView(), new BonusInputValidator(),
+                WinningLottoOutputDto.of(winningLotto)).getInput().bonusNumber();
+        if (isTest) {
+            System.out.println(args[2]);
+        }
+        // 당첨 통계 출력
+        new PurchaseLottoToPrize(new PrizeStatisticsOutputView(), WinningLottoOutputDto.of(winningLotto),
+                new BonusOutputDto(bonusNumber)).tryConvert(purchasedLotto);
     }
 }
