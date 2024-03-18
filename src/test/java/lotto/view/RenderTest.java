@@ -1,15 +1,26 @@
 package lotto.view;
 
-import base.view.OutputView;
+import base.view.View;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.*;
-import lotto.model.entity.lotto.*;
-import lotto.model.entity.lotto.prize.PrizeEnum;
-import lotto.model.entity.lotto.prize.PrizeOutputDto;
-import lotto.model.entity.lotto.prize.stats.StatsOutputDto;
-import lotto.view.sout.*;
-import org.junit.jupiter.api.*;
+import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
+import lotto.model.lotto.ILottoPurchaseOutput;
+import lotto.model.lotto.LottoInputDto;
+import lotto.model.lotto.LottoOutputDto;
+import lotto.model.lotto.LottoPurchaseOutputDto;
+import lotto.model.prize.IPrizeOutput;
+import lotto.model.prize.PrizeEnum;
+import lotto.model.prize.PrizeOutputDto;
+import lotto.model.stats.IStatsOutput;
+import lotto.model.stats.StatsOutputDto;
+import lotto.view.sout.LottoPurchaseOutputView;
+import lotto.view.sout.PrizeStatisticsOutputView;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 public class RenderTest {
 
@@ -43,9 +54,9 @@ public class RenderTest {
         StringBuilder sb = new StringBuilder();
         sb.append(input.purchased().size()).append("개를 구매했습니다.").append(lf);
         input.purchased().forEach(lotto -> sb.append(lotto.numbers()).append(lf));
-        String expected = sb.toString();
+        String expected = lf + sb + lf;
 
-        OutputView<LottoPurchaseOutputDto> view = new LottoPurchaseOutputView();
+        View<ILottoPurchaseOutput> view = new LottoPurchaseOutputView();
         System.setOut(new PrintStream(actual));
         // when
         view.render(input);
@@ -57,7 +68,7 @@ public class RenderTest {
     @Test
     void prizeStatisticsOutput() {
         // given
-        SortedMap<PrizeOutputDto, Integer> input = new TreeMap<>();
+        SortedMap<IPrizeOutput, Integer> input = new TreeMap<>();
         for (var key : PrizeEnum.values()) {
             input.put(PrizeOutputDto.of(key), 0);
         }
@@ -72,7 +83,7 @@ public class RenderTest {
                 총 수익률은 62.5%입니다.
                 """.replace("\n", lf);
 
-        OutputView<StatsOutputDto> view = new PrizeStatisticsOutputView();
+        View<IStatsOutput> view = new PrizeStatisticsOutputView();
         System.setOut(new PrintStream(actual));
         // when
         view.render(new StatsOutputDto(input));
