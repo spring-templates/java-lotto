@@ -1,6 +1,9 @@
 package lotto.model.prize;
 
 import java.text.DecimalFormat;
+import lotto.model.bonus.BonusOutputDto;
+import lotto.model.lotto.ILottoOutput;
+import lotto.model.lotto.winning.WinningLottoOutputDto;
 
 public record PrizeOutputDto(
         int matchedNumberCount,
@@ -14,6 +17,14 @@ public record PrizeOutputDto(
                 prizeEnum.getIsBonusMatched(),
                 prizeEnum.getPrize()
         );
+    }
+
+    public static PrizeOutputDto of(
+            ILottoOutput lotto,
+            WinningLottoOutputDto winningLotto,
+            BonusOutputDto winningBonusNumber
+    ) {
+        return of(PrizeEnum.of(winningLotto.countNumberMatched(lotto), winningBonusNumber.isBonusMatched(lotto)));
     }
 
     @Override

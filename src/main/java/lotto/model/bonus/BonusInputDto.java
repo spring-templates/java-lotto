@@ -11,5 +11,4 @@ public record BonusInputDto(
         new BonusInputValidator().validate(tmp);
         return tmp;
     }
-
 }

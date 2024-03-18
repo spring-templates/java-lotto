@@ -5,9 +5,8 @@ import base.model.Validator;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public abstract class ConsoleInput<IN extends Schema> {
-
-    private static final Scanner scanner = new Scanner(System.in);
+public abstract class ConsoleInput<IN extends Schema> implements AutoCloseable {
+    private final Scanner scanner = new Scanner(System.in);
     private final View<IN> view;
     private final Validator<IN> validator;
 
@@ -43,5 +42,9 @@ public abstract class ConsoleInput<IN extends Schema> {
 
     private void printInputHeader() {
         view.header();
+    }
+
+    public void close() {
+        scanner.close();
     }
 }

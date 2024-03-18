@@ -16,7 +16,7 @@ public record PrizeInputDto(
     ) {
         var tmp = new PrizeInputDto(
                 numbers,
-                new WinningLottoOutputDto(winningLottoNumbers),
+                WinningLottoOutputDto.of(winningLottoNumbers),
                 bonusNumber);
         new PrizeInputValidator().validate(tmp);
         return tmp;

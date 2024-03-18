@@ -6,7 +6,9 @@ import lotto.model.prize.IPrizeOutput;
 import lotto.model.prize.PrizeEnum;
 import lotto.model.prize.PrizeOutputDto;
 
-public record StatsOutputDto(SortedMap<IPrizeOutput, Integer> prizeStats) implements IStatsOutput {
+public record StatsOutputDto(
+        SortedMap<IPrizeOutput, Integer> prizeStats
+) implements IStatsOutput {
     public static StatsOutputDto of(IStatsInput input) {
         var prizeStats = new TreeMap<IPrizeOutput, Integer>();
         for (var prize : PrizeEnum.values()) {

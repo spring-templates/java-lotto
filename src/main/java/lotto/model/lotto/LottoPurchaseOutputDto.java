@@ -5,7 +5,9 @@ import java.util.List;
 public record LottoPurchaseOutputDto(
         List<ILottoOutput> purchased
 ) implements ILottoPurchaseOutput {
-    public static LottoPurchaseOutputDto of(List<ILottoOutput> input) throws IllegalArgumentException {
+    public static LottoPurchaseOutputDto of(
+            List<ILottoOutput> input
+    ) throws IllegalArgumentException {
         return new LottoPurchaseOutputDto(input);
     }
 

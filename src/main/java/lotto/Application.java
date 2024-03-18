@@ -1,59 +1,54 @@
 package lotto;
 
 import java.io.ByteArrayInputStream;
-import java.util.Arrays;
 import lotto.controller.MoneyConsoleInput;
 import lotto.controller.MoneyToPurchaseLotto;
 import lotto.controller.PurchaseLottoToPrize;
 import lotto.controller.WinningBonusConsoleInput;
 import lotto.controller.WinningLottoConsoleInput;
-import lotto.model.bonus.BonusInputValidator;
 import lotto.model.bonus.BonusOutputDto;
-import lotto.model.lotto.winning.IWinningLottoInput;
-import lotto.model.lotto.winning.WinningLottoInputValidator;
-import lotto.model.lotto.winning.WinningLottoOutputDto;
-import lotto.model.money.LottoCostInputValidator;
-import lotto.view.sin.BonusInputView;
-import lotto.view.sin.MoneyInputView;
-import lotto.view.sin.WinningLottoInputView;
-import lotto.view.sout.LottoPurchaseOutputView;
-import lotto.view.sout.PrizeStatisticsOutputView;
+import lotto.model.bonus.IBonusOutput;
+import lotto.model.lotto.winning.IWinningLottoOutput;
+import lotto.model.money.IMoneyInput;
 
 public class Application {
 
-    private static void lineFeed() {
-        System.out.println();
-    }
-
     public static void main(String[] args) {
-        boolean isTest = args.length == 3;
-        if (isTest) {
-            var arguments = Arrays.asList(args);
-            String input = String.join(System.lineSeparator(), arguments);
-            System.setIn(new ByteArrayInputStream(input.getBytes()));
+        if (args.length < 3) {
+            args = new String[]{"8000", "1,2,3,4,5,6", "7"};
         }
-        lineFeed();
+        ByteArrayInputStream actual = new ByteArrayInputStream(
+                String.join(System.lineSeparator(), args).getBytes());
+        System.setIn(actual);
+
         // 구입 금액 입력
-        var money = new MoneyConsoleInput(new MoneyInputView(), new LottoCostInputValidator()).getInput();
-        if (isTest) {
-            System.out.println(args[0]);
+        IMoneyInput money;
+        try (var console = MoneyConsoleInput.of()) {
+            money = console.getInput();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+
         // 로또 구매
-        var purchasedLotto = new MoneyToPurchaseLotto(new LottoPurchaseOutputView()).tryConvert(money);
+        var purchasedLotto = MoneyToPurchaseLotto.of().tryConvert(money);
+
         // 당첨 로또 번호 입력
-        IWinningLottoInput winningLotto = new WinningLottoConsoleInput(new WinningLottoInputView(),
-                new WinningLottoInputValidator()).getInput();
-        if (isTest) {
-            System.out.println(args[1]);
+        IWinningLottoOutput winningLotto;
+        try (var console = WinningLottoConsoleInput.of()) {
+            winningLotto = IWinningLottoOutput.of(console.getInput());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+
         // 보너스 번호 입력
-        var bonusNumber = new WinningBonusConsoleInput(new BonusInputView(), new BonusInputValidator(),
-                WinningLottoOutputDto.of(winningLotto)).getInput().bonusNumber();
-        if (isTest) {
-            System.out.println(args[2]);
+        IBonusOutput bonusNumber;
+        try (var console = WinningBonusConsoleInput.of(winningLotto)) {
+            bonusNumber = BonusOutputDto.of(console.getInput());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+
         // 당첨 통계 출력
-        new PurchaseLottoToPrize(new PrizeStatisticsOutputView(), WinningLottoOutputDto.of(winningLotto),
-                new BonusOutputDto(bonusNumber)).tryConvert(purchasedLotto);
+        PurchaseLottoToPrize.of(winningLotto, bonusNumber).tryConvert(purchasedLotto);
     }
 }

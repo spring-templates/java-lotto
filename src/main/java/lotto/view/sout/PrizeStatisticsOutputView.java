@@ -11,7 +11,7 @@ public class PrizeStatisticsOutputView extends View<IStatsOutput> {
     }
 
     public void render(IStatsOutput dto) {
-        var prizeStatsOutputDto = new StatsOutputDto(dto.prizeStats());
+        var prizeStatsOutputDto = (StatsOutputDto) dto;
         System.out.println(prizeStatsOutputDto);
         printProfitRate(prizeStatsOutputDto);
     }
@@ -22,7 +22,6 @@ public class PrizeStatisticsOutputView extends View<IStatsOutput> {
         System.out.println("당첨 통계");
         System.out.println("---");
     }
-
 
     private void printProfitRate(StatsOutputDto prizeStatsOutputDto) {
         System.out.println("총 수익률은 " + prizeStatsOutputDto.profitRate() + "%입니다.");

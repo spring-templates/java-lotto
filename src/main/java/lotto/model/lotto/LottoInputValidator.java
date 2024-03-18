@@ -16,6 +16,6 @@ public class LottoInputValidator implements Validator<ILottoInput> {
             throw new IllegalArgumentException("input.numbers().size() != 6");
         }
         var numbers = new TreeSet<>(input.numbers());
-        outputValidator.validate(new LottoOutputDto(numbers));
+        outputValidator.validate(LottoOutputDto.of(numbers));
     }
 }

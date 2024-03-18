@@ -10,6 +10,11 @@ public record LottoOutputDto(
         return new LottoOutputDto(new TreeSet<>(input.numbers()));
     }
 
+    public static LottoOutputDto of(TreeSet<Integer> numbers) {
+        return new LottoOutputDto(numbers);
+    }
+
+
     @Override
     public String toString() {
         return numbers.toString();

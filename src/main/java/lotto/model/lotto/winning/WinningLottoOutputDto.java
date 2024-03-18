@@ -14,6 +14,14 @@ public record WinningLottoOutputDto(
         return tmp;
     }
 
+    public static IWinningLottoOutput of(SortedSet<Integer> winningLottoNumbers) {
+        return new WinningLottoOutputDto(winningLottoNumbers);
+    }
+
+    public static WinningLottoOutputDto of(IWinningLottoOutput winningLotto) {
+        return new WinningLottoOutputDto(winningLotto.numbers());
+    }
+
     @Override
     public String toString() {
         return numbers.toString();

@@ -10,11 +10,18 @@ import lotto.model.lotto.ILottoPurchaseOutput;
 import lotto.model.lotto.LottoOutputDto;
 import lotto.model.lotto.LottoPurchaseOutputDto;
 import lotto.model.money.IMoneyInput;
+import lotto.view.sout.LottoPurchaseOutputView;
 
 public class MoneyToPurchaseLotto extends Converter<IMoneyInput, ILottoPurchaseOutput> {
 
     public MoneyToPurchaseLotto(View<ILottoPurchaseOutput> view) {
         super(view);
+    }
+
+    public static MoneyToPurchaseLotto of() {
+        return new MoneyToPurchaseLotto(
+                new LottoPurchaseOutputView()
+        );
     }
 
     @Override
@@ -24,7 +31,7 @@ public class MoneyToPurchaseLotto extends Converter<IMoneyInput, ILottoPurchaseO
         while (size-- > 0) {
             tmp.add(generateRandomLotto());
         }
-        return new LottoPurchaseOutputDto(tmp);
+        return LottoPurchaseOutputDto.of(tmp);
     }
 
     private LottoOutputDto generateRandomLotto() {
@@ -33,6 +40,6 @@ public class MoneyToPurchaseLotto extends Converter<IMoneyInput, ILottoPurchaseO
         while (numbers.size() < 6) {
             numbers.add(random.nextInt(45) + 1);
         }
-        return new LottoOutputDto(numbers);
+        return LottoOutputDto.of(numbers);
     }
 }
