@@ -2,11 +2,12 @@ package lotto.view;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import lotto.view.sin.BonusInputView;
 import lotto.view.sin.MoneyInputView;
-import lotto.view.sin.WinningBonusInputView;
 import lotto.view.sin.WinningLottoInputView;
 import lotto.view.sout.LottoPurchaseOutputView;
 import lotto.view.sout.PrizeStatisticsOutputView;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -23,11 +24,16 @@ public class HeaderTest {
         System.setOut(new PrintStream(actual));
     }
 
+    @AfterEach
+    void tearDown() {
+        System.setOut(System.out);
+    }
+
     @DisplayName("구입금액 입력 헤더 출력 테스트")
     @Test
     void moneyInputHeader() {
         // given
-        String expected = "구입금액을 입력해 주세요." + System.lineSeparator();
+        String expected = lf + "구입금액을 입력해 주세요." + System.lineSeparator();
         // when
         new MoneyInputView().header();
         // then
@@ -38,7 +44,7 @@ public class HeaderTest {
     @Test
     void winningLottoInputHeader() {
         // given
-        String expected = "당첨 번호를 입력해 주세요." + System.lineSeparator();
+        String expected = "당첨 번호를 입력해 주세요." + lf;
         // when
         new WinningLottoInputView().header();
         // then
@@ -49,9 +55,9 @@ public class HeaderTest {
     @Test
     void winningBonusNumberInputHeader() {
         // given
-        String expected = "보너스 번호를 입력해 주세요." + System.lineSeparator();
+        String expected = lf + "보너스 번호를 입력해 주세요." + lf;
         // when
-        new WinningBonusInputView().header();
+        new BonusInputView().header();
         // then
         Assertions.assertEquals(expected, actual.toString());
     }
@@ -71,7 +77,7 @@ public class HeaderTest {
     @Test
     void prizeStatisticsOutputHeader() {
         // given
-        String expected = "당첨 통계" + lf + "---" + lf;
+        String expected = lf + "당첨 통계" + lf + "---" + lf;
         // when
         new PrizeStatisticsOutputView();
         // then
