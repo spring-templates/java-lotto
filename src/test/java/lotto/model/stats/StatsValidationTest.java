@@ -1,8 +1,9 @@
-package lotto.model.entity.lotto.prize.stats;
+package lotto.model.stats;
 
 import java.util.List;
-import lotto.model.entity.lotto.prize.PrizeEnum;
-import lotto.model.entity.lotto.prize.PrizeOutputDto;
+import lotto.model.prize.IPrizeOutput;
+import lotto.model.prize.PrizeEnum;
+import lotto.model.prize.PrizeOutputDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,7 @@ public class StatsValidationTest {
     @Test
     void calculateProfitRate() {
         // given
-        List<PrizeOutputDto> prizes = List.of(
+        List<IPrizeOutput> prizes = List.of(
                 PrizeOutputDto.of(PrizeEnum.NONE_0),
                 PrizeOutputDto.of(PrizeEnum.NONE_1),
                 PrizeOutputDto.of(PrizeEnum.NONE_0),
@@ -34,11 +35,11 @@ public class StatsValidationTest {
 
     }
 
-    private double calculateProfitRate(List<PrizeOutputDto> prizes) {
+    private double calculateProfitRate(List<IPrizeOutput> prizes) {
         double profit = 0;
         double cost = 0;
-        for (PrizeOutputDto prize : prizes) {
-            profit += prize.prize().money();
+        for (IPrizeOutput prize : prizes) {
+            profit += prize.money();
             cost += 1000;
         }
         return profit / cost * 100;

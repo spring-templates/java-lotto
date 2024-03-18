@@ -1,8 +1,8 @@
-package lotto.model.entity.lotto.bonus;
+package lotto.model.bonus;
 
 import java.util.List;
 import java.util.TreeSet;
-import lotto.model.entity.lotto.LottoOutputDto;
+import lotto.model.lotto.LottoOutputDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 public class BonusValidationTest {
-    private final BonusGenerator generator = new BonusGenerator();
     private final LottoOutputDto lotto = new LottoOutputDto(new TreeSet<>(List.of(1, 2, 3, 4, 5, 6)));
 
     @DisplayName("edge case")
@@ -19,9 +18,9 @@ public class BonusValidationTest {
     @ValueSource(ints = {-1, 0, 46})
     void outOfRange(int number) {
         // given
-        BonusInputDto input = new BonusInputDto(lotto, number);
+        var lottoNumbers = lotto.numbers();
         // when
-        Executable lambda = () -> generator.generate(input);
+        Executable lambda = () -> BonusInputDto.of(lottoNumbers, number);
         // then
         Assertions.assertThrows(IllegalArgumentException.class, lambda, "number < 1 || number > 45");
     }
@@ -30,10 +29,10 @@ public class BonusValidationTest {
     @Test
     void duplication() {
         // given
+        var lottoNumbers = lotto.numbers();
         int duplicatedNumber = lotto.numbers().first();
-        BonusInputDto input = new BonusInputDto(lotto, duplicatedNumber);
         // when
-        Executable lambda = () -> generator.generate(input);
+        Executable lambda = () -> BonusInputDto.of(lottoNumbers, duplicatedNumber);
         // then
         Assertions.assertThrows(IllegalArgumentException.class, lambda, "input.contains(duplicatedNumber)");
     }
