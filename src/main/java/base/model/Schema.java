@@ -1,4 +1,5 @@
-package base;
+package base.model;
 
 public interface Schema {
+
 }
