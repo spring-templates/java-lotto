@@ -8,15 +8,21 @@ import lotto.model.money.LottoCostInputValidator;
 import lotto.model.money.MoneyInputDto;
 import lotto.view.sin.MoneyInputView;
 
+import java.util.Scanner;
+
+/**
+ * MoneyConsoleInput을 Singleton에 맞게 생성자는 private으로 수정
+ */
 public class MoneyConsoleInput extends ConsoleInput<IMoneyInput> {
-    public MoneyConsoleInput(View<IMoneyInput> view, Validator<IMoneyInput> validator) {
-        super(view, validator);
+    private MoneyConsoleInput(View<IMoneyInput> view, Validator<IMoneyInput> validator, Scanner scanner) {
+        super(view, validator, scanner);
     }
 
-    public static MoneyConsoleInput of() {
+    public static MoneyConsoleInput of(Scanner scanner) {
         return new MoneyConsoleInput(
                 new MoneyInputView(),
-                new LottoCostInputValidator()
+                new LottoCostInputValidator(),
+                scanner
         );
     }
 

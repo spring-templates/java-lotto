@@ -1,6 +1,8 @@
 package lotto.controller;
 
 import java.io.ByteArrayInputStream;
+import java.util.Scanner;
+
 import lotto.model.money.MoneyInputValidator;
 import lotto.view.sin.MoneyInputView;
 import org.junit.jupiter.api.Assertions;
@@ -13,8 +15,8 @@ public class LottoPurchaseTest {
     private final String lf = System.lineSeparator();
 
 
-    private MoneyConsoleInput getController() {
-        return new MoneyConsoleInput(new MoneyInputView(), new MoneyInputValidator());
+    private MoneyConsoleInput getController(Scanner scanner) {
+        return MoneyConsoleInput.of(scanner);
     }
 
     @Disabled
@@ -24,8 +26,10 @@ public class LottoPurchaseTest {
     void inputMoney(int number) {
         // given
         String input = number + lf;
+        ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
         System.setIn(new ByteArrayInputStream(input.getBytes()));
-        var controller = getController();
+        var controller = getController(new Scanner(System.in));
 
         // then
         Assertions.assertDoesNotThrow(controller::tryInput);
@@ -38,7 +42,8 @@ public class LottoPurchaseTest {
         // given
         String input = number + lf;
         System.setIn(new ByteArrayInputStream(input.getBytes()));
-        var controller = getController();
+        Scanner scanner = new Scanner(System.in);
+        var controller = getController(scanner);
 
         // then
         Assertions.assertThrows(IllegalArgumentException.class, controller::tryInput);
@@ -51,7 +56,8 @@ public class LottoPurchaseTest {
         // given
         String input = number + lf;
         System.setIn(new ByteArrayInputStream(input.getBytes()));
-        var controller = getController();
+        Scanner scanner = new Scanner(System.in);
+        var controller = getController(scanner);
 
         // then
         Assertions.assertThrows(IllegalArgumentException.class, controller::tryInput);

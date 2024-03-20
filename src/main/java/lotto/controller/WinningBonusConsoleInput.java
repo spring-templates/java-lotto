@@ -4,6 +4,8 @@ import base.model.Validator;
 import base.view.ConsoleInput;
 import base.view.View;
 import java.util.NoSuchElementException;
+import java.util.Scanner;
+
 import lotto.model.bonus.BonusInputDto;
 import lotto.model.bonus.BonusInputValidator;
 import lotto.model.bonus.IBonusInput;
@@ -17,17 +19,19 @@ public class WinningBonusConsoleInput extends ConsoleInput<IBonusInput> {
     private WinningBonusConsoleInput(
             View<IBonusInput> view,
             Validator<IBonusInput> validator,
-            IWinningLottoOutput winningLotto
+            IWinningLottoOutput winningLotto,
+            Scanner scanner
     ) throws IllegalArgumentException {
-        super(view, validator);
+        super(view, validator, scanner);
         this.winningLotto = winningLotto;
     }
 
-    public static ConsoleInput<IBonusInput> of(IWinningLottoOutput winningLotto) {
+    public static ConsoleInput<IBonusInput> of(IWinningLottoOutput winningLotto, Scanner scanner) {
         return new WinningBonusConsoleInput(
                 new BonusInputView(),
                 new BonusInputValidator(),
-                winningLotto);
+                winningLotto,
+                scanner);
     }
 
     @Override
