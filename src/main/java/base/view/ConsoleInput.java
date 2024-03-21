@@ -46,6 +46,6 @@ public abstract class ConsoleInput<IN extends Schema> implements AutoCloseable {
     }
 
     public void close() {
-        scanner.close();
+//        scanner.close();
     }
 }
