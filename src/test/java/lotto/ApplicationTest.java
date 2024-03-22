@@ -1,18 +1,18 @@
 package lotto;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Random;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.mockito.Mockito;
 import org.mockito.stubbing.OngoingStubbing;
-import static org.mockito.Mockito.when;
 
 public class ApplicationTest {
     private final String lf = System.lineSeparator();
@@ -29,45 +29,44 @@ public class ApplicationTest {
         System.setOut(System.out);
     }
 
-//    @Disabled
     @DisplayName("Application 실행 테스트")
     @Test
     void integrationTest() {
         // given
-        // 무작위로 생성되는 Random 변수를 제어할 수 없을까?
         String[] args = {"8000", "1,2,3,4,5,6", "7"};
         Random randomNumberMock = Mockito.mock(Random.class);
-        int [][] randomValues = new int[][]{
+        int[][] randomValues = new int[][]{
                 {1, 2, 3, 41, 42, 43},
-            {1, 2, 9, 41, 42, 43},
-            {3, 5, 11, 16, 32, 38},
+                {1, 2, 9, 41, 42, 43},
+                {3, 5, 11, 16, 32, 38},
                 {7, 11, 16, 35, 36, 44},
                 {13, 14, 16, 38, 42, 44},
                 {2, 13, 22, 32, 38, 41},
                 {2, 13, 22, 32, 38, 43},
                 {2, 13, 22, 32, 38, 42}
         };
-        String expected = makeStringByArgs(args, randomValues);
+        String expected = makeStringByArgs(randomValues);
         OngoingStubbing<Integer> stubbing = when(randomNumberMock.nextInt(45));
         for (int[] values : randomValues) {
             for (int value : values) {
                 stubbing = stubbing.thenReturn(value);
             }
         }
-
         // when
         Game game = new Game(args, randomNumberMock);
         game.runGame();
         // then
-        assertEquals(expected.trim(), actual.toString().trim());
+        assertEquals(
+                expected.trim().replaceAll("\r", ""),
+                actual.toString().trim().replaceAll("\r", ""));
     }
 
-    private String makeStringByArgs(String[] args, int[][] randomValues) {
-        String inputMoney = "구입금액을 입력해 주세요." + lf ; //+ args[0] + lf;
+    private String makeStringByArgs(int[][] randomValues) {
+        String inputMoney = "구입금액을 입력해 주세요." + lf; //+ args[0] + lf;
         StringBuilder sb = new StringBuilder();
-        sb.append(String.format("%d개를 구매했습니다.\n",8));
-        for(int i=0; i<randomValues.length; i++){
-            sb.append(Arrays.toString(Arrays.stream(randomValues[i]).map(n->n+1).toArray()));
+        sb.append(String.format("%d개를 구매했습니다.\n", 8));
+        for (int[] randomValue : randomValues) {
+            sb.append(Arrays.toString(Arrays.stream(randomValue).map(n -> n + 1).toArray()));
             sb.append("\n");
         }
         String outputPurchasedLotto = sb.toString();
@@ -82,12 +81,12 @@ public class ApplicationTest {
                 5개 일치, 보너스 볼 일치 (30,000,000원) - 0개
                 6개 일치 (2,000,000,000원) - 0개
                 총 수익률은 62.5%입니다.
-                """.replace("\n", lf);
+                """.replace("\n", lf).trim();
         return concatLines(inputMoney, outputPurchasedLotto, inputWinningLotto, inputWinningBonus,
                 outputPrizeStatistics);
     }
 
     private String concatLines(String... lines) {
-        return String.join(lf, lines) + lf;
+        return String.join(lf, lines);
     }
 }
