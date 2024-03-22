@@ -4,6 +4,8 @@ import base.model.Validator;
 import base.view.ConsoleInput;
 import base.view.View;
 import java.util.List;
+import java.util.Scanner;
+
 import lotto.model.lotto.winning.IWinningLottoInput;
 import lotto.model.lotto.winning.WinningLottoInputDto;
 import lotto.model.lotto.winning.WinningLottoInputValidator;
@@ -12,15 +14,17 @@ import lotto.view.sin.WinningLottoInputView;
 public class WinningLottoConsoleInput extends ConsoleInput<IWinningLottoInput> {
     private WinningLottoConsoleInput(
             View<IWinningLottoInput> view,
-            Validator<IWinningLottoInput> validator
+            Validator<IWinningLottoInput> validator,
+            Scanner scanner
     ) {
-        super(view, validator);
+        super(view, validator, scanner);
     }
 
-    public static ConsoleInput<IWinningLottoInput> of() {
+    public static ConsoleInput<IWinningLottoInput> of(Scanner scanner) {
         return new WinningLottoConsoleInput(
                 new WinningLottoInputView(),
-                new WinningLottoInputValidator()
+                new WinningLottoInputValidator(),
+                scanner
         );
     }
 

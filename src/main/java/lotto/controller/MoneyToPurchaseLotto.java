@@ -14,14 +14,16 @@ import lotto.view.sout.LottoPurchaseOutputView;
 
 public class MoneyToPurchaseLotto extends Converter<IMoneyInput, ILottoPurchaseOutput> {
 
-    public MoneyToPurchaseLotto(View<ILottoPurchaseOutput> view) {
+    private final Random random;
+    private MoneyToPurchaseLotto(View<ILottoPurchaseOutput> view, Random random) {
         super(view);
+        this.random = random;
     }
 
-    public static MoneyToPurchaseLotto of() {
+    public static MoneyToPurchaseLotto of(Random random) {
         return new MoneyToPurchaseLotto(
-                new LottoPurchaseOutputView()
-        );
+                new LottoPurchaseOutputView(),
+                random);
     }
 
     @Override
@@ -35,7 +37,6 @@ public class MoneyToPurchaseLotto extends Converter<IMoneyInput, ILottoPurchaseO
     }
 
     private LottoOutputDto generateRandomLotto() {
-        var random = new Random();
         var numbers = new TreeSet<Integer>();
         while (numbers.size() < 6) {
             numbers.add(random.nextInt(45) + 1);
