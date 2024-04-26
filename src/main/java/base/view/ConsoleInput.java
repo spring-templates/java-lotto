@@ -44,4 +44,8 @@ public abstract class ConsoleInput<IN extends Schema> implements AutoCloseable {
     private void printInputHeader() {
         view.header();
     }
+    @Override
+    public void close() {
+        scanner.close();
+    }
 }
