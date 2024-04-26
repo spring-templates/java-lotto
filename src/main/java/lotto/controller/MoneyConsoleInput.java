@@ -10,9 +10,6 @@ import lotto.view.sin.MoneyInputView;
 
 import java.util.Scanner;
 
-/**
- * MoneyConsoleInput을 Singleton에 맞게 생성자는 private으로 수정
- */
 public class MoneyConsoleInput extends ConsoleInput<IMoneyInput> {
     private MoneyConsoleInput(View<IMoneyInput> view, Validator<IMoneyInput> validator, Scanner scanner) {
         super(view, validator, scanner);
