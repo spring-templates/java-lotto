@@ -35,15 +35,16 @@ jobs:
         run: |
           git clone https://github.com/spring-templates/java-lotto.wiki.git wiki
           cd wiki
-          
+      - run: find
+      
       - name: Setup mdBook
         uses: peaceiris/actions-mdbook@v2
         with:
           mdbook-version: 'latest'
-  
+      - run: find
+      
       - name: Build with mdBook
         run: mdbook build
-
       - run: find
 
       - name: Setup Pages
