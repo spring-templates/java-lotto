@@ -46,6 +46,9 @@ public abstract class ConsoleInput<IN extends Schema> implements AutoCloseable {
     }
     @Override
     public void close() {
-        // scanner.close();
+        // closing Scanner will close System.in stream
+        // and this made it impossible to reopen the stream
+        // make sure not to close the scanner
+        // but close any other resources with override if necessary
     }
 }

@@ -26,10 +26,9 @@ public class Game {
             System.setIn(actual);
         }
 
-        Scanner scanner = new Scanner(System.in);
         // 구입 금액 입력
         IMoneyInput money;
-        try (var console = MoneyConsoleInput.of(scanner)) {
+        try (var console = MoneyConsoleInput.of(getScanner())) {
             money = console.getInput();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -40,7 +39,7 @@ public class Game {
 
         // 당첨 로또 번호 입력
         IWinningLottoOutput winningLotto;
-        try (var console = WinningLottoConsoleInput.of(scanner)) {
+        try (var console = WinningLottoConsoleInput.of(getScanner())) {
             winningLotto = IWinningLottoOutput.of(console.getInput());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -48,7 +47,7 @@ public class Game {
 
         // 보너스 번호 입력
         IBonusOutput bonusNumber;
-        try (var console = WinningBonusConsoleInput.of(winningLotto, scanner)) {
+        try (var console = WinningBonusConsoleInput.of(winningLotto, getScanner())) {
             bonusNumber = BonusOutputDto.of(console.getInput());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -56,5 +55,9 @@ public class Game {
 
         // 당첨 통계 출력
         PurchaseLottoToPrize.of(winningLotto, bonusNumber).tryConvert(purchasedLotto);
+    }
+
+    private static Scanner getScanner() {
+      return new Scanner(System.in);
     }
 }
