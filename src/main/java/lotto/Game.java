@@ -11,11 +11,19 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
+    private static Scanner scanner;
     private final String[] args;
     private final Random random;
     public Game(String[] args, Random random) {
         this.args = args;
         this.random = random;
+    }
+
+    private static Scanner getScanner() {
+        if (scanner == null) {
+            scanner = new Scanner(System.in);
+        }
+        return scanner;
     }
 
     public void runGame(){
@@ -55,9 +63,5 @@ public class Game {
 
         // 당첨 통계 출력
         PurchaseLottoToPrize.of(winningLotto, bonusNumber).tryConvert(purchasedLotto);
-    }
-
-    private static Scanner getScanner() {
-      return new Scanner(System.in);
     }
 }
