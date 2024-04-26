@@ -30,7 +30,7 @@ public abstract class ConsoleInput<IN extends Schema> implements AutoCloseable {
 
     public final IN getInput() {
         while (true) {
-            printInputHeader(); // 들여쓰기
+            printInputHeader(); // 입력을 받기 전에 출력할 문구
             try {
                 return tryInput();
             } catch (IllegalArgumentException e) {
