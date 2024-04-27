@@ -57,6 +57,75 @@ public abstract class View<T extends Schema> {
 }
 ```
 
+# base.view.ConsoleInput
+
+사용자의 입력을 전달받는다.
+
+`implements AutoCloseable`로 `@Override close()`하여 구현하면, `try-with-resource`문을 통해 Scanner에 대한 관리를 간편하게 진행할 수 있다.
+다만, 본 문제에서는 YAGNI 원칙을 준수하여, 하나의 Scanner 인스턴스를 전역으로 공유하는 방식으로 단순하게 구현했다.
+
+> 현재 프로그램에서는 `close()` 메서드를 비활성화 되어 있다.
+이는 Scanner가 현재 사용하고 있는 Stream이 `System.in`으로, 한 번 `close()`하면 런타임동안 다시 열 수 없기 때문이다.
+사용자의 표준 입력 결과를 파일로 저장하고, 파일 입력 스트림에 대해 Scanner 인스턴스를 사용해야 한다면 유용하다.
+
+```java
+package base.view;
+
+import base.model.Schema;
+import base.model.Validator;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+
+public abstract class ConsoleInput<IN extends Schema> implements AutoCloseable {
+    private final Scanner scanner;
+    private final View<IN> view;
+    private final Validator<IN> validator;
+
+    protected ConsoleInput(View<IN> view, Validator<IN> validator, Scanner scanner) {
+        this.scanner = scanner;
+        this.view = view;
+        this.validator = validator;
+    }
+
+    public final IN tryInput() throws IllegalArgumentException {
+        IN res;
+        try {
+            String input = scanner.nextLine();
+            res = parseDto(input); // 입력 목적에 따라 문자열 파싱
+        } catch (NoSuchElementException e) {
+            throw new IllegalArgumentException(e.getMessage());
+        }
+        validator.validate(res);
+        return res;
+    }
+
+    public final IN getInput() {
+        while (true) {
+            printInputHeader(); // 입력을 받기 전에 출력할 문구
+            try {
+                return tryInput();
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    protected abstract IN parseDto(String in) throws IllegalArgumentException;
+
+    private void printInputHeader() {
+        view.header();
+    }
+    @Override
+    public void close() {
+        // closing Scanner will close System.in stream
+        // and this made it impossible to reopen the stream
+        // make sure not to close the scanner
+        // but close any other resources with override if necessary
+    }
+}
+
+```
+
 # base.controller.Converter
 
 `Schema` A를 B로 변환하는 역할을 담당한다.

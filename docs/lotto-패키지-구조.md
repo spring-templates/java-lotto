@@ -89,5 +89,5 @@ public class WinningLottoConsoleInput extends ConsoleInput<IWinningLottoInput> {
 
 # lotto.model
 
-- 참조: [DTO-Convention](https://github.com/spring-templates/java-lotto/wiki/DTO-Convention)
+- 참조: [DTO-Convention](DTO-Convention)
 
