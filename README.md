@@ -8,15 +8,6 @@
 5. View가 Model로부터 데이터를 받을 때, 반드시 Controller에서 받아야 한다.
 ```
 
-## Controller
-
-- [x] `view.InputView`를 통해 사용자 입력을 받아 `Money` 생성
-- [x] 보유한 `Money`를 `model.service.LottoVendor`에 전달하여 `Lotto` 구매
-- [x] 클래스 내부에서 `CustomerSession`에 구매한 `Lotto`를 저장하여 **DTO**로 활용
-- [x] `model.service.LottoVendor`을 통해 산출된 `Prize`를 `view.OutputView`에 전달하여 출력
-
-## View
-
 ### InputView
 
 - [x] 구매 금액 입력
@@ -66,30 +57,3 @@
     총 수익률은 62.5%입니다.
     ```
 
-## Model
-
-### Entity
-
-|       레코드명        |    정의     |            생성 시점             |   사용처    |
-|:-----------------:|-----------|:----------------------------:|:--------:|
-| `CustomerSession` | 구매 로또 DTO |        `LottoFactory`        | 당첨 통계 생성 |
-|      `Money`      | 로또 구입 금액  |         `InputView`          |  로또 구매   |
-|      `Lotto`      | 로또 한 장 정보 |    `LottoGenerateService`    | 구매 로또 정보 |
-|      `Prize`      | 로또별 당첨 정보 | `LottoPrizeCalculateService` | 당첨 통계 생성 |
-
-#### 상세 정보
-
-1. `Lotto`
-    - 구매한 로또 한 장의 정보를 저장합니다.
-    - 1부터 45까지의 숫자 중 6개를 랜덤으로 포함합니다.
-    - 숫자를 검증하고 새로운 Lotto 인스턴스를 생성하는 메서드를 제공합니다.
-2. `Money`
-    - 로또 구입을 위해 사용되는 금액을 표현합니다.
-    - 로또 한 장의 가격은 1000원으로 고정입니다.
-    - 사용자로부터 구입 금액을 받을 때 생성됩니다.
-    - 로또를 구매하는 메서드에 제공됩니다.
-3. `CustomerSession`
-    - Factory를 통한 생성 단계에서 구매한 로또의 정보를 관리합니다.
-4. `Prize`
-    - `LottoPrizeCalculateService.calculatePrize()`에서 생성됩니다.
-    - hashcode()를 재정의하여 정의된 당첨금을 반환합니다.
